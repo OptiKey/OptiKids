@@ -1,0 +1,93 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="JuliusSweetland.OptiKids.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="KeySelectionTriggerKeyboardKeyDownUpKey" Roaming="true" Type="JuliusSweetland.OptiKids.Enums.Keys" Scope="User">
+      <Value Profile="(Default)">Insert</Value>
+    </Setting>
+    <Setting Name="KeySelectionTriggerMouseDownUpButton" Roaming="true" Type="JuliusSweetland.OptiKids.Enums.MouseButtons" Scope="User">
+      <Value Profile="(Default)">Left</Value>
+    </Setting>
+    <Setting Name="KeySelectionTriggerSource" Roaming="true" Type="JuliusSweetland.OptiKids.Enums.TriggerSources" Scope="User">
+      <Value Profile="(Default)">Fixations</Value>
+    </Setting>
+    <Setting Name="SettingsUpgradeRequired" Roaming="true" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PointTtl" Roaming="true" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00.1500000</Value>
+    </Setting>
+    <Setting Name="GazeTrackerUdpPort" Roaming="true" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">6666</Value>
+    </Setting>
+    <Setting Name="ToastNotificationVerticalFillPercentage" Roaming="true" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">75</Value>
+    </Setting>
+    <Setting Name="ToastNotificationSecondsPerCharacter" Roaming="true" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">0.02</Value>
+    </Setting>
+    <Setting Name="Theme" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/Resources/Themes/Android_Dark.xaml</Value>
+    </Setting>
+    <Setting Name="FontFamily" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)">/Resources/Fonts/#Roboto</Value>
+    </Setting>
+    <Setting Name="FontStretch" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Condensed</Value>
+    </Setting>
+    <Setting Name="FontWeight" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Light</Value>
+    </Setting>
+    <Setting Name="SpeechRate" Roaming="true" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="SpeechVoice" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="SpeechVolume" Roaming="true" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="KeySelectionTriggerIncompleteFixationTtl" Roaming="true" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00.7500000</Value>
+    </Setting>
+    <Setting Name="KeySelectionTriggerFixationLockOnTime" Roaming="true" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00.2500000</Value>
+    </Setting>
+    <Setting Name="SelectionTriggerStopSignal" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NextHigh</Value>
+    </Setting>
+    <Setting Name="ToastNotificationHorizontalFillPercentage" Roaming="true" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">75</Value>
+    </Setting>
+    <Setting Name="ProgressIndicatorBehaviour" Roaming="true" Type="JuliusSweetland.OptiKids.Enums.ProgressIndicatorBehaviours" Scope="User">
+      <Value Profile="(Default)">FillPie</Value>
+    </Setting>
+    <Setting Name="ProgressIndicatorResizeStartProportion" Roaming="true" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="ProgressIndicatorResizeEndProportion" Roaming="true" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="KeySelectionTriggerFixationResumeRequiresLockOn" Roaming="true" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="TobiiEyeXProcessingLevel" Roaming="true" Type="JuliusSweetland.OptiKids.Enums.DataStreamProcessingLevels" Scope="User">
+      <Value Profile="(Default)">Medium</Value>
+    </Setting>
+    <Setting Name="Debug" Roaming="true" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="KeySelectionTriggerFixationCompleteTime" Roaming="true" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:01.2500000</Value>
+    </Setting>
+    <Setting Name="PointsSource" Roaming="true" Type="JuliusSweetland.OptiKids.Enums.PointsSources" Scope="User">
+      <Value Profile="(Default)">MousePosition</Value>
+    </Setting>
+    <Setting Name="PointsMousePositionSampleInterval" Roaming="true" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00.0130000</Value>
+    </Setting>
+    <Setting Name="TETCalibrationCheckTimeSpan" Roaming="true" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:03</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

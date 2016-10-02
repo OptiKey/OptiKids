@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="JuliusSweetland.OptiKids.UI.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:properties="clr-namespace:JuliusSweetland.OptiKids.Properties"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:interactionRequest="http://www.codeplex.com/prism"
+             xmlns:controls="clr-namespace:JuliusSweetland.OptiKids.UI.Controls"
+             xmlns:resx="clr-namespace:JuliusSweetland.OptiKids.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <!--<controls:KeyboardHost Keyboard="{Binding Keyboard, Mode=OneWay}"
+                               PointToKeyValueMap="{Binding PointToKeyValueMap, Mode=OneWayToSource}">
+            <controls:KeyboardHost.ErrorContent>
+                <Border Background="Black">
+                    <Viewbox>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            <TextBlock Text="{x:Static resx:Resources.PROBLEM_LOADING_KEYBOARD}" HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center" Foreground="DarkRed"  Margin="10" />
+                            <TextBlock Text="{x:Static resx:Resources.INVALID_KEYBOARD_AND_LANGUAGE_ERROR}"
+                                            HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                            Foreground="DarkRed" Margin="10" />
+                        </StackPanel>
+                    </Viewbox>
+                </Border>
+            </controls:KeyboardHost.ErrorContent>
+        </controls:KeyboardHost>-->
+    </Grid>
+</UserControl>
