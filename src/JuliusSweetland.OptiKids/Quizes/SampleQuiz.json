@@ -1,0 +1,32 @@
+{
+  "Description": "Sample quiz",
+  "WordAudioHints": true,
+  "SpellingAudioHints": true,
+  "DisplayImageForXSeconds": 4,
+  "RandomiseWords": false,
+  "RandomiseLetters": true,
+  "DisplayWordMasks": true,
+  "HintEveryXIncorrectLetters": 2,
+  "Questions": [
+    {
+      "Word": "dog",
+      "Letters": "adeg|imot",
+      "ImagePath": "dog.jpg"
+    },
+    {
+      "Word": "DOG",
+      "Letters": "ADEG|IMOT",
+      "ImagePath": "dog.jpg"
+    },
+    {
+      "Word": "cat",
+      "Letters": "achi|knpt",
+      "ImagePath": "cat.jpg"
+    },
+    {
+      "Word": "CAT",
+      "Letters": "ACHI|KNPT",
+      "ImagePath": "cat.jpg"
+    }
+  ]
+}

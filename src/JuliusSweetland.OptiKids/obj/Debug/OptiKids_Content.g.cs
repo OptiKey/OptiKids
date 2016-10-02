@@ -8,6 +8,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/cat.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/dog.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("mygazeapi.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("bass.dll")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("tobii.eyex.client.dll")]

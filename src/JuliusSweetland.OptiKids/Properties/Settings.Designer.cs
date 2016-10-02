@@ -399,5 +399,57 @@ namespace JuliusSweetland.OptiKids.Properties {
                 this["TETCalibrationCheckTimeSpan"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("SampleQuiz.json")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public string QuizFile {
+            get {
+                return ((string)(this["QuizFile"]));
+            }
+            set {
+                this["QuizFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-3")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public int WordSpeechRate {
+            get {
+                return ((int)(this["WordSpeechRate"]));
+            }
+            set {
+                this["WordSpeechRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-1")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public int SpellingSpeechRate {
+            get {
+                return ((int)(this["SpellingSpeechRate"]));
+            }
+            set {
+                this["SpellingSpeechRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("EnglishUK.json")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public string PronunciationFile {
+            get {
+                return ((string)(this["PronunciationFile"]));
+            }
+            set {
+                this["PronunciationFile"] = value;
+            }
+        }
     }
 }

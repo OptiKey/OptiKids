@@ -23,6 +23,7 @@ using log4net.Appender;
 using log4net.Core;
 using log4net.Repository.Hierarchy;
 using NBug.Core.UI;
+using Newtonsoft.Json;
 using Octokit;
 using Octokit.Reactive;
 using Application = System.Windows.Application;
@@ -99,6 +100,45 @@ namespace JuliusSweetland.OptiKids
             };
             
             Settings.Default.OnPropertyChanges(settings => settings.Theme).Subscribe(_ => applyTheme());
+
+            var pronunciation = new Dictionary<char, string>
+            {
+                {'a', "a"},
+                {'b', "b er"},
+                {'c', "k er"},
+                {'d', "d er"},
+                {'e', "er"},
+                {'f', "f er"},
+                {'g', "g er"},
+                {'h', "h er"},
+                {'i', "i"},
+                {'j', "jh er"},
+                {'k', "k er"},
+                {'l', "l er"},
+                {'m', "m er"},
+                {'n', "n er"},
+                {'o', "q"},
+                {'p', "p er"},
+                {'q', "k w er"},
+                {'r', "r er"},
+                {'s', "s"},
+                {'t', "t er"},
+                {'u', "er rho"},
+                {'v', "v er"},
+                {'w', "w er"},
+                {'x', "k s"},
+                {'y', "y er"},
+                {'z', "z"},
+            };
+            //var quiz = new Quiz("Sample quiz", true, true, 4, false, true, true, 2, new List<Question>
+            //{
+            //    new Question("dog", "adeg|imot", "dog.jpg"),
+            //    new Question("DOG", "ADEG|IMOT", "dog.jpg"),
+            //    new Question("cat", "achi|knpt", "cat.jpg"),
+            //    new Question("CAT", "ACHI|KNPT", "cat.jpg"),
+            //});
+            string output = JsonConvert.SerializeObject(pronunciation);
+            //var quiz2 = JsonConvert.DeserializeObject<Quiz>(output);
         }
 
         #endregion

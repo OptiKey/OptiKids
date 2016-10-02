@@ -89,5 +89,17 @@
     <Setting Name="TETCalibrationCheckTimeSpan" Roaming="true" Type="System.TimeSpan" Scope="User">
       <Value Profile="(Default)">00:00:03</Value>
     </Setting>
+    <Setting Name="QuizFile" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SampleQuiz.json</Value>
+    </Setting>
+    <Setting Name="WordSpeechRate" Roaming="true" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-3</Value>
+    </Setting>
+    <Setting Name="SpellingSpeechRate" Roaming="true" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="PronunciationFile" Roaming="true" Type="System.String" Scope="User">
+      <Value Profile="(Default)">EnglishUK.json</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
