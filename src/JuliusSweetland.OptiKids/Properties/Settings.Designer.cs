@@ -402,7 +402,7 @@ namespace JuliusSweetland.OptiKids.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("SampleQuiz.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Quizes\\SampleQuiz.json")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public string QuizFile {
             get {
@@ -441,7 +441,7 @@ namespace JuliusSweetland.OptiKids.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("EnglishUK.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Pronunciation\\EnglishUK.json")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public string PronunciationFile {
             get {

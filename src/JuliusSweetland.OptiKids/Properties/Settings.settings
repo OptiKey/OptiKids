@@ -90,7 +90,7 @@
       <Value Profile="(Default)">00:00:03</Value>
     </Setting>
     <Setting Name="QuizFile" Roaming="true" Type="System.String" Scope="User">
-      <Value Profile="(Default)">SampleQuiz.json</Value>
+      <Value Profile="(Default)">Quizes\SampleQuiz.json</Value>
     </Setting>
     <Setting Name="WordSpeechRate" Roaming="true" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-3</Value>
@@ -99,7 +99,7 @@
       <Value Profile="(Default)">-1</Value>
     </Setting>
     <Setting Name="PronunciationFile" Roaming="true" Type="System.String" Scope="User">
-      <Value Profile="(Default)">EnglishUK.json</Value>
+      <Value Profile="(Default)">Pronunciation\EnglishUK.json</Value>
     </Setting>
   </Settings>
 </SettingsFile>
