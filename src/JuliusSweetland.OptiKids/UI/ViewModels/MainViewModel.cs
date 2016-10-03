@@ -22,6 +22,8 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         private readonly IAudioService audioService;
         private readonly IInputService inputService;
         private readonly IKeyStateService keyStateService;
+        private readonly Dictionary<char, string> pronunciation;
+        private readonly Quiz quiz;
 
         private KeyValue? currentPositionKey;
         private Dictionary<Rect, KeyValue> pointToKeyValueMap;
@@ -30,11 +32,14 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
 
         #region Ctor
 
-        public MainViewModel(IAudioService audioService, IInputService inputService, IKeyStateService keyStateService)
+        public MainViewModel(IAudioService audioService, IInputService inputService, 
+            IKeyStateService keyStateService, Dictionary<char, string> pronunciation, Quiz quiz)
         {
             this.audioService = audioService;
             this.inputService = inputService;
             this.keyStateService = keyStateService;
+            this.pronunciation = pronunciation;
+            this.quiz = quiz;
         }
 
         #endregion
@@ -73,6 +78,11 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         #endregion
 
         #region Methods
+
+        public void StartQuiz()
+        {
+            //TODO: Run the quiz
+        }
 
         public void FireCorrectKeySelectionEvent(KeyValue kv)
         {

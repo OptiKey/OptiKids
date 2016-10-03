@@ -46,6 +46,7 @@ namespace JuliusSweetland.OptiKids
 
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Action applyTheme;
+        private readonly MainWindow mainWindow = new MainWindow();
 
         #endregion
 
@@ -54,7 +55,7 @@ namespace JuliusSweetland.OptiKids
         public App()
         {
             //Setup unhandled exception handling and NBug
-            AttachUnhandledExceptionHandlers();
+            AttachUnhandledExceptionHandlers(mainWindow);
 
             //Log startup diagnostic info
             Log.Info("STARTING UP.");
@@ -100,45 +101,6 @@ namespace JuliusSweetland.OptiKids
             };
             
             Settings.Default.OnPropertyChanges(settings => settings.Theme).Subscribe(_ => applyTheme());
-
-            var pronunciation = new Dictionary<char, string>
-            {
-                {'a', "a"},
-                {'b', "b er"},
-                {'c', "k er"},
-                {'d', "d er"},
-                {'e', "er"},
-                {'f', "f er"},
-                {'g', "g er"},
-                {'h', "h er"},
-                {'i', "i"},
-                {'j', "jh er"},
-                {'k', "k er"},
-                {'l', "l er"},
-                {'m', "m er"},
-                {'n', "n er"},
-                {'o', "q"},
-                {'p', "p er"},
-                {'q', "k w er"},
-                {'r', "r er"},
-                {'s', "s"},
-                {'t', "t er"},
-                {'u', "er rho"},
-                {'v', "v er"},
-                {'w', "w er"},
-                {'x', "k s"},
-                {'y', "y er"},
-                {'z', "z"},
-            };
-            //var quiz = new Quiz("Sample quiz", true, true, 4, false, true, true, 2, new List<Question>
-            //{
-            //    new Question("dog", "adeg|imot", "dog.jpg"),
-            //    new Question("DOG", "ADEG|IMOT", "dog.jpg"),
-            //    new Question("cat", "achi|knpt", "cat.jpg"),
-            //    new Question("CAT", "ACHI|KNPT", "cat.jpg"),
-            //});
-            string output = JsonConvert.SerializeObject(pronunciation);
-            //var quiz2 = JsonConvert.DeserializeObject<Quiz>(output);
         }
 
         #endregion
@@ -158,14 +120,21 @@ namespace JuliusSweetland.OptiKids
                 IAudioService audioService = new AudioService();
                 IKeyStateService keyStateService = new KeyStateService();
                 IInputService inputService = CreateInputService();
+
+                //Load pronunciation and quiz from files
+                var pronunciation = LoadPronunciation();
+                var quiz = LoadQuiz();
                 
                 //Compose UI
-                var mainWindow = new MainWindow();
-                var mainViewModel = new MainViewModel(audioService, inputService, keyStateService);
+                var mainViewModel = new MainViewModel(audioService, inputService, keyStateService, pronunciation, quiz);
                 mainWindow.MainView.DataContext = mainViewModel;
 
                 //Setup actions to take once main view is loaded (i.e. the view is ready, so hook up the services which kicks everything off)
-                Action postMainViewLoaded = mainViewModel.AttachServiceEventHandlers;
+                Action postMainViewLoaded = () =>
+                {
+                    mainViewModel.AttachServiceEventHandlers();
+                    mainViewModel.StartQuiz();
+                };
                 if(mainWindow.MainView.IsLoaded)
                 {
                     postMainViewLoaded();
@@ -195,52 +164,26 @@ namespace JuliusSweetland.OptiKids
 
         #region Attach Unhandled Exception Handlers
 
-        private static void AttachUnhandledExceptionHandlers()
+        private static void AttachUnhandledExceptionHandlers(Window window)
         {
-            Current.DispatcherUnhandledException += (sender, args) => Log.Error("A DispatcherUnhandledException has been encountered...", args.Exception);
-            AppDomain.CurrentDomain.UnhandledException += (sender, args) => Log.Error("An UnhandledException has been encountered...", args.ExceptionObject as Exception);
-            TaskScheduler.UnobservedTaskException += (sender, args) => Log.Error("An UnobservedTaskException has been encountered...", args.Exception);
-
-#if !DEBUG
-            Application.Current.DispatcherUnhandledException += NBug.Handler.DispatcherUnhandledException;
-            AppDomain.CurrentDomain.UnhandledException += NBug.Handler.UnhandledException;
-            TaskScheduler.UnobservedTaskException += NBug.Handler.UnobservedTaskException;
-
-            NBug.Settings.ProcessingException += (exception, report) =>
+            Current.DispatcherUnhandledException += (sender, args) =>
             {
-                //Add latest log file contents as custom info in the error report
-                var rootAppender = ((Hierarchy)LogManager.GetRepository())
-                    .Root.Appenders.OfType<FileAppender>()
-                    .FirstOrDefault();
-
-                if (rootAppender != null)
-                {
-                    using (var fs = new FileStream(rootAppender.File, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    {
-                        using (var sr = new StreamReader(fs, Encoding.Default))
-                        {
-                            var logFileText = sr.ReadToEnd();
-                            report.CustomInfo = logFileText;
-                        }
-                    }
-                }
+                Log.Error("A DispatcherUnhandledException has been encountered...", args.Exception);
+                MessageBox.Show(window, "EXCEPTION!", args.Exception.Message, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Application.Current.Shutdown();
             };
-
-            NBug.Settings.CustomUIEvent += (sender, args) =>
+            AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
             {
-                var crashWindow = new CrashWindow
-                {
-                    Topmost = true,
-                    ShowActivated = true
-                };
-                crashWindow.ShowDialog();
-
-                //The crash report has not been created yet - the UIDialogResult SendReport param determines what happens next
-                args.Result = new UIDialogResult(ExecutionFlow.BreakExecution, SendReport.Send);
+                Log.Error("An UnhandledException has been encountered...", args.ExceptionObject as Exception);
+                MessageBox.Show(window, "EXCEPTION!", (args.ExceptionObject as Exception).Message, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Application.Current.Shutdown();
             };
-
-            NBug.Settings.InternalLogWritten += (logMessage, category) => Log.DebugFormat("NBUG:{0} - {1}", category, logMessage);
-#endif
+            TaskScheduler.UnobservedTaskException += (sender, args) =>
+            {
+                Log.Error("An UnobservedTaskException has been encountered...", args.Exception);
+                MessageBox.Show(window, "EXCEPTION!", args.Exception.Message, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Application.Current.Shutdown();
+            };
         }
 
         #endregion
@@ -360,6 +303,23 @@ namespace JuliusSweetland.OptiKids
             var inputService = new InputService(pointSource, keySelectionTriggerSource);
             inputService.RequestSuspend(); //Pause it initially
             return inputService;
+        }
+
+        #endregion
+
+        #region Load Pronunciation and Quiz From Files
+
+        //https://msdn.microsoft.com/en-us/library/office/hh361601(v=office.14).aspx#PhoneTables
+        private Dictionary<char, string> LoadPronunciation()
+        {
+            var pronunciationString = File.ReadAllText(Settings.Default.PronunciationFile);
+            return JsonConvert.DeserializeObject<Dictionary<char, string>>(pronunciationString);
+        }
+
+        private Quiz LoadQuiz()
+        {
+            var quizString = File.ReadAllText(Settings.Default.QuizFile);
+            return JsonConvert.DeserializeObject<Quiz>(quizString);
         }
 
         #endregion
