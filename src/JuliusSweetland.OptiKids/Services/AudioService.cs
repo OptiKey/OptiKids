@@ -56,7 +56,6 @@ namespace JuliusSweetland.OptiKids.Services
         public bool SpeakNewOrInterruptCurrentSpeech(string textToSpeak, Action onComplete, int? volume = null, int? rate = null, string voice = null)
         {
             Log.Info("SpeakNewOrInterruptCurrentSpeech called");
-            if (string.IsNullOrEmpty(textToSpeak)) return false;
 
             try
             {
@@ -64,7 +63,45 @@ namespace JuliusSweetland.OptiKids.Services
                 {
                     if (speakCompleted == null)
                     {
-                        Speak(textToSpeak, onComplete, volume, rate, voice);
+                        Action speakAction = () =>
+                        {
+                            Log.InfoFormat("Speaking '{0}' with volume '{1}', rate '{2}' and voice '{3}'", textToSpeak, volume, rate, voice);
+                            if (string.IsNullOrEmpty(textToSpeak)) return;
+                            speechSynthesiser.SpeakAsync(textToSpeak);
+                        };
+                        Speak(speakAction, onComplete, volume, rate, voice);
+                        return true;
+                    }
+                    CancelSpeech();
+                }
+            }
+            catch (Exception exception)
+            {
+                PublishError(this, exception);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Start speaking the supplied text, or cancel the in-progress speech
+        /// </summary>
+        /// <returns>Indication of whether speech is now in progress</returns>
+        public bool SpeakNewOrInterruptCurrentSpeech(PromptBuilder promptBuilder, Action onComplete, int? volume = null, int? rate = null, string voice = null)
+        {
+            Log.Info("SpeakNewOrInterruptCurrentSpeech called");
+
+            try
+            {
+                lock (speakCompletedLock)
+                {
+                    if (speakCompleted == null)
+                    {
+                        Action speakAction = () =>
+                        {
+                            Log.InfoFormat("Speaking prompt '{0}' with volume '{1}', rate '{2}' and voice '{3}'", promptBuilder, volume, rate, voice);
+                            speechSynthesiser.SpeakAsync(promptBuilder);
+                        };
+                        Speak(speakAction, onComplete, volume, rate, voice);
                         return true;
                     }
                     CancelSpeech();
@@ -143,10 +180,9 @@ namespace JuliusSweetland.OptiKids.Services
             }
         }
         
-        private void Speak(string textToSpeak, Action onComplete, int? volume = null, int? rate = null, string voice = null)
+        private void Speak(Action speak, Action onComplete, int? volume = null, int? rate = null, string voice = null)
         {
-            Log.InfoFormat("Speaking '{0}' with volume '{1}', rate '{2}' and voice '{3}'", textToSpeak, volume, rate, voice);
-            if (string.IsNullOrEmpty(textToSpeak)) return;
+            if (speak == null) return;
 
             speechSynthesiser.Rate = rate ?? Settings.Default.SpeechRate;
             speechSynthesiser.Volume = volume ?? Settings.Default.SpeechVolume;
@@ -179,7 +215,7 @@ namespace JuliusSweetland.OptiKids.Services
                 }
             };
             speechSynthesiser.SpeakCompleted += speakCompleted;
-            speechSynthesiser.SpeakAsync(textToSpeak);
+            speak();
         }
 
         #endregion

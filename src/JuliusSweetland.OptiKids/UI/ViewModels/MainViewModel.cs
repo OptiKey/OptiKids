@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Windows;
 using JuliusSweetland.OptiKids.Enums;
@@ -125,12 +126,6 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
 
             if (question != null)
             {
-                InputService.RequestSuspend();
-                ImagePath = question.ImagePath;
-                audioService.SpeakNewOrInterruptCurrentSpeech("Test", null);
-                await Task.Delay(quiz.DisplayImageForXSeconds * 1000);
-                ImagePath = null;
-
                 word = questions[questionIndex].Word;
                 WordProgress = quiz.DisplayWordMasks
                     ? word.Select(c => '_').ToString()
@@ -143,6 +138,13 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
                     orderedLetters = orderedLetters.OrderBy(x => rnd.Next()).ToList();
                 }
                 Letters = orderedLetters;
+
+                InputService.RequestSuspend();
+                ImagePath = question.ImagePath;
+                Speak(word);
+                await Task.Delay(quiz.DisplayImageForXSeconds * 1000);
+                ImagePath = null;
+                InputService.RequestResume();
             }
             else
             {
@@ -150,28 +152,31 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             }
         }
 
-        private void Speak(string word)
+        private async void Speak(string word)
         {
-            audioService.SpeakNewOrInterruptCurrentSpeech(word, null, null, Settings.Default.WordSpeechRate);
-
-            var phonemes = ;
-
-            if (string.IsNullOrEmpty(phonemes))
+            if (quiz.WordAudioHints)
             {
-                foreach (var letter in word.Where(c => Char.IsLetter(c)).ToList())
-                {
-                    audioService.SpeakNewOrInterruptCurrentSpeech(letter.ToString(), null, null, Settings.Default.SpellingSpeechRate);
-                }
+                var taskCompletionSource = new TaskCompletionSource<bool>(); //Used to make this method awaitable
+                audioService.SpeakNewOrInterruptCurrentSpeech(word, 
+                    () => taskCompletionSource.SetResult(true), null, Settings.Default.WordSpeechRate);
+                await taskCompletionSource.Task;
             }
-            else
+
+            if (quiz.SpellingAudioHints)
             {
-                foreach (var phoneme in phonemes.Split('|'))
+                var ssmls = word.Where(Char.IsLetter)
+                    .Select(c => pronunciation.ContainsKey(c) 
+                        ? string.Format("<phoneme alphabet=\"x-microsoft-ups\" ph=\"{0}\">{0}</phoneme><break />", pronunciation[c])
+                        : string.Format("{0}<break />", c));
+                var promptBuilder = new PromptBuilder();
+                foreach (var ssml in ssmls)
                 {
-                    var pb = new PromptBuilder();
-                    string ssml = string.Format("<phoneme alphabet=\"x-microsoft-ups\" ph=\"{0}\">{0}</phoneme>", phoneme);
-                    pb.AppendSsmlMarkup(ssml);
-                    synth.Speak(pb);
+                    promptBuilder.AppendSsmlMarkup(ssml);
                 }
+                var taskCompletionSource = new TaskCompletionSource<bool>();
+                audioService.SpeakNewOrInterruptCurrentSpeech(promptBuilder, 
+                    () => taskCompletionSource.SetResult(true), null, Settings.Default.SpellingSpeechRate);
+                await taskCompletionSource.Task;
             }
         }
 
