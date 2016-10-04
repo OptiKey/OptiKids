@@ -3,7 +3,7 @@
   "WordAudioHints": true,
   "SpellingAudioHints": true,
   "DisplayImageForXSeconds": 4,
-  "RandomiseWords": false,
+  "RandomiseWords": true,
   "RandomiseLetters": true,
   "DisplayWordMasks": true,
   "HintEveryXIncorrectLetters": 2,
@@ -11,22 +11,22 @@
     {
       "Word": "dog",
       "Letters": "adeg|imot",
-      "ImagePath": "dog.jpg"
+      "ImagePath": "\\Resources\\Images\\dog.jpg"
     },
     {
       "Word": "DOG",
       "Letters": "ADEG|IMOT",
-      "ImagePath": "dog.jpg"
+      "ImagePath": "\\Resources\\Images\\dog.jpg"
     },
     {
       "Word": "cat",
       "Letters": "achi|knpt",
-      "ImagePath": "cat.jpg"
+      "ImagePath": "\\Resources\\Images\\cat.jpg"
     },
     {
       "Word": "CAT",
       "Letters": "ACHI|KNPT",
-      "ImagePath": "cat.jpg"
+      "ImagePath": "\\Resources\\Images\\cat.jpg"
     }
   ]
 }

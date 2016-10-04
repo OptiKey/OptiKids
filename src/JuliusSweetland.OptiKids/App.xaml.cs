@@ -109,6 +109,12 @@ namespace JuliusSweetland.OptiKids
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            //var quiz2 = new Quiz("test", true, true, 1, true, true, true, 2, new List<Question>
+            //{
+            //    new Question("word", "letters", @"Resources\Images\cat.jpg")
+            //});
+            //var json = JsonConvert.SerializeObject(quiz2);
+
             try
             {
                 Log.Info("Boot strapping the services and UI.");

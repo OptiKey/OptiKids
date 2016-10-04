@@ -15,6 +15,18 @@
     </UserControl.Resources>
 
     <Grid>
+        <Image Stretch="Fill" Source="{Binding ImagePath}">
+            <Image.Style>
+                <Style TargetType="{x:Type Image}">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ImagePath}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Image.Style>
+        </Image>
         <!--<controls:KeyboardHost Keyboard="{Binding Keyboard, Mode=OneWay}"
                                PointToKeyValueMap="{Binding PointToKeyValueMap, Mode=OneWayToSource}">
             <controls:KeyboardHost.ErrorContent>
