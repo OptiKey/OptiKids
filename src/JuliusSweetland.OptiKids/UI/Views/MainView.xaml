@@ -15,7 +15,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <Image Stretch="Fill" Source="{Binding ImagePath}">
+        <Image Stretch="Uniform" Source="{Binding ImagePath}">
             <Image.Style>
                 <Style TargetType="{x:Type Image}">
                     <Setter Property="Visibility" Value="Visible" />

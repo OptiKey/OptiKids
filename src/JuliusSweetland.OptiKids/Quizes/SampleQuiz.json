@@ -27,6 +27,16 @@
       "Word": "CAT",
       "Letters": "ACHI|KNPT",
       "ImagePath": "\\Resources\\Images\\cat.jpg"
+    },
+    {
+      "Word": "ball",
+      "Letters": "abeg|hjlp",
+      "ImagePath": "\\Resources\\Images\\ball.jpg"
+    },
+    {
+      "Word": "BALL",
+      "Letters": "ABEG|HJLP",
+      "ImagePath": "\\Resources\\Images\\ball.jpg"
     }
   ]
 }

@@ -276,6 +276,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Content Include="Resources\Images\ball.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\cat.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
