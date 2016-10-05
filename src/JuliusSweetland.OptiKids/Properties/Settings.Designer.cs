@@ -451,5 +451,18 @@ namespace JuliusSweetland.OptiKids.Properties {
                 this["PronunciationFile"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public int MinImageDisplayTimeInSeconds {
+            get {
+                return ((int)(this["MinImageDisplayTimeInSeconds"]));
+            }
+            set {
+                this["MinImageDisplayTimeInSeconds"] = value;
+            }
+        }
     }
 }

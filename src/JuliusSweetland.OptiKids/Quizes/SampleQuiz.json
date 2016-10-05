@@ -1,8 +1,6 @@
 {
   "Description": "Sample quiz",
-  "WordAudioHints": true,
   "SpellingAudioHints": true,
-  "DisplayImageForXSeconds": 4,
   "RandomiseWords": true,
   "RandomiseLetters": true,
   "DisplayWordMasks": true,

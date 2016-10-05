@@ -218,3 +218,4 @@ pip-log.txt
 *.cache
 src/JuliusSweetland.OptiKids/obj/Debug/JuliusSweetland.OptiKids.csproj.FileListAbsolute.txt
 .vs/OptiKids/v14/.suo
+*.suo

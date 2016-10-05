@@ -141,8 +141,9 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
 
                 InputService.RequestSuspend();
                 ImagePath = question.ImagePath;
-                Speak(word);
-                await Task.Delay(quiz.DisplayImageForXSeconds * 1000);
+                var minImageDisplayTime = Task.Delay(Settings.Default.MinImageDisplayTimeInSeconds * 1000);
+                var speakTask = Speak(word);
+                await Task.WhenAll(minImageDisplayTime, speakTask);
                 ImagePath = null;
                 InputService.RequestResume();
             }
@@ -152,15 +153,12 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             }
         }
 
-        private async void Speak(string word)
+        private async Task Speak(string word)
         {
-            if (quiz.WordAudioHints)
-            {
-                var taskCompletionSource = new TaskCompletionSource<bool>(); //Used to make this method awaitable
-                audioService.SpeakNewOrInterruptCurrentSpeech(word, 
-                    () => taskCompletionSource.SetResult(true), null, Settings.Default.WordSpeechRate);
-                await taskCompletionSource.Task;
-            }
+            var wordTcs = new TaskCompletionSource<bool>(); //Used to make this method awaitable
+            audioService.SpeakNewOrInterruptCurrentSpeech(word, 
+                () => wordTcs.SetResult(true), null, Settings.Default.WordSpeechRate);
+            await wordTcs.Task;
 
             if (quiz.SpellingAudioHints)
             {
@@ -173,10 +171,10 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
                 {
                     promptBuilder.AppendSsmlMarkup(ssml);
                 }
-                var taskCompletionSource = new TaskCompletionSource<bool>();
+                var spellingTcs = new TaskCompletionSource<bool>();
                 audioService.SpeakNewOrInterruptCurrentSpeech(promptBuilder, 
-                    () => taskCompletionSource.SetResult(true), null, Settings.Default.SpellingSpeechRate);
-                await taskCompletionSource.Task;
+                    () => spellingTcs.SetResult(true), null, Settings.Default.SpellingSpeechRate);
+                await spellingTcs.Task;
             }
         }
 
