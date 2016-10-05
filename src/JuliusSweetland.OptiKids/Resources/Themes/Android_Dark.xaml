@@ -16,8 +16,8 @@
             <SolidColorBrush x:Key="KeyDefaultBorderBrush" Color="{StaticResource Grey}" />
             <SolidColorBrush x:Key="KeyDefaultBackgroundBrush" Color="{StaticResource Black}" />
 
-            <SolidColorBrush x:Key="KeyHoverForegroundBrush" Color="{StaticResource Yellow}" />
-            <SolidColorBrush x:Key="KeySelectionProgressBrush" Color="{StaticResource Yellow}" />
+            <SolidColorBrush x:Key="KeyHoverForegroundBrush" Color="{StaticResource Blue}" />
+            <SolidColorBrush x:Key="KeySelectionProgressBrush" Color="{StaticResource Blue}" />
 
             <StaticResource x:Key="CorrectKeySelectionForeground" ResourceKey="White"/>
             <StaticResource x:Key="CorrectKeySelectionBorder" ResourceKey="Grey"/>
@@ -46,11 +46,10 @@
                 <Setter Property="TextAlignment" Value="Center" />
                 <Setter Property="HorizontalAlignment" Value="Center" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Text" Value="{Binding Path=ShiftUpText, RelativeSource={RelativeSource AncestorType={x:Type controls:Key}}}" />
+                <Setter Property="Text" Value="{Binding Path=Text, RelativeSource={RelativeSource AncestorType={x:Type controls:Key}}}" />
                 <Setter Property="FontFamily" Value="{Binding Source={x:Static properties:Settings.Default}, Path=FontFamily}" />
                 <Setter Property="FontWeight" Value="{Binding Source={x:Static properties:Settings.Default}, Path=FontWeight}" />
                 <Setter Property="FontStretch" Value="{Binding Source={x:Static properties:Settings.Default}, Path=FontStretch}" />
-                <Setter Property="Visibility" Value="Hidden" />
                 <Setter Property="behaviours:KeyBehaviours.BeginAnimationOnCorrectKeySelectionEvent">
                     <Setter.Value>
                         <Storyboard>

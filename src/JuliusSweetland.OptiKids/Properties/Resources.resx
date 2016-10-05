@@ -1706,4 +1706,7 @@ Slovensko
   <data name="CALIBRATION_SUCCESS" xml:space="preserve">
     <value>Calibration success!</value>
   </data>
+  <data name="UNABLE_TO_RENDER_KEYBOARD" xml:space="preserve">
+    <value>Unable to render keyboard! Check the logs.</value>
+  </data>
 </root>

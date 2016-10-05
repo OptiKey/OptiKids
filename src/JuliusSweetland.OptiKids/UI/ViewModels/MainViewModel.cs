@@ -33,7 +33,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         private string imagePath;
         private string word;
         private string wordProgress;
-        private List<string> letters;
+        private string letters;
         private int letterIndex = 0;
         private int letterGuessCount = 0;
 
@@ -90,7 +90,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             set { SetProperty(ref imagePath, value); }
         }
 
-        private List<string> Letters
+        public string Letters
         {
             get { return letters; }
             set { SetProperty(ref letters, value); }
@@ -131,11 +131,19 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
                     ? word.Select(c => '_').ToString()
                     : null;
 
-                var orderedLetters = questions[questionIndex].Letters.Select(c => c.ToString()).ToList();
+                var orderedLetters = questions[questionIndex].Letters;
                 if (quiz.RandomiseLetters)
                 {
                     var rnd = new Random();
-                    orderedLetters = orderedLetters.OrderBy(x => rnd.Next()).ToList();
+                    var randomisedLetters = orderedLetters.Where(c => c != '|').OrderBy(x => rnd.Next()).ToList();
+                    for(var index = 0; index < orderedLetters.Length; index++)
+                    {
+                        if (orderedLetters[index] == '|')
+                        {
+                            randomisedLetters.Insert(index, '|');
+                        }
+                    }
+                    orderedLetters = string.Join("", randomisedLetters);
                 }
                 Letters = orderedLetters;
 
@@ -162,20 +170,25 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
 
             if (quiz.SpellingAudioHints)
             {
-                var ssmls = word.Where(Char.IsLetter)
-                    .Select(c => pronunciation.ContainsKey(c) 
-                        ? string.Format("<phoneme alphabet=\"x-microsoft-ups\" ph=\"{0}\">{0}</phoneme><break />", pronunciation[c])
-                        : string.Format("{0}<break />", c));
-                var promptBuilder = new PromptBuilder();
-                foreach (var ssml in ssmls)
-                {
-                    promptBuilder.AppendSsmlMarkup(ssml);
-                }
-                var spellingTcs = new TaskCompletionSource<bool>();
-                audioService.SpeakNewOrInterruptCurrentSpeech(promptBuilder, 
-                    () => spellingTcs.SetResult(true), null, Settings.Default.SpellingSpeechRate);
-                await spellingTcs.Task;
+                await Spell(word);
             }
+        }
+
+        private async Task Spell(string word)
+        {
+            var ssmls = word.Where(Char.IsLetter)
+                .Select(c => pronunciation.ContainsKey(c)
+                    ? string.Format("<phoneme alphabet=\"x-microsoft-ups\" ph=\"{0}\">{0}</phoneme><break />", pronunciation[c])
+                    : string.Format("{0}<break />", c));
+            var promptBuilder = new PromptBuilder();
+            foreach (var ssml in ssmls)
+            {
+                promptBuilder.AppendSsmlMarkup(ssml);
+            }
+            var spellingTcs = new TaskCompletionSource<bool>();
+            audioService.SpeakNewOrInterruptCurrentSpeech(promptBuilder,
+                () => spellingTcs.SetResult(true), null, Settings.Default.SpellingSpeechRate);
+            await spellingTcs.Task;
         }
 
         private void ProgressQuestion()

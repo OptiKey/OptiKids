@@ -158,6 +158,7 @@ namespace JuliusSweetland.OptiKids
 
                 //Show the main window
                 mainWindow.Show();
+                inputService.RequestResume(); //Start the input service
             }
             catch (Exception ex)
             {

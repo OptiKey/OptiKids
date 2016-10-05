@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:views="clr-namespace:JuliusSweetland.OptiKids.UI.Views"
         WindowState="Maximized"
+        WindowStyle="None"
         Title="OptiKids"
         Icon="..\..\Resources\Icons\Main.ico">
     <views:MainView x:Name="MainView" />

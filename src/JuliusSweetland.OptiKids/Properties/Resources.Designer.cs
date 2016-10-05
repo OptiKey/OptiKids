@@ -4387,6 +4387,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to render keyboard! Check the logs..
+        /// </summary>
+        public static string UNABLE_TO_RENDER_KEYBOARD {
+            get {
+                return ResourceManager.GetString("UNABLE_TO_RENDER_KEYBOARD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was a problem setting the voice to &apos;{0}&apos;{1}.
         /// </summary>
         public static string UNABLE_TO_SET_VOICE_WARNING {

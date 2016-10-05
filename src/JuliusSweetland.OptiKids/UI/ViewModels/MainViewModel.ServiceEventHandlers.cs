@@ -1,4 +1,5 @@
 using JuliusSweetland.OptiKids.Models;
+using JuliusSweetland.OptiKids.Properties;
 
 namespace JuliusSweetland.OptiKids.UI.ViewModels
 {
@@ -34,6 +35,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
 
                 if (value.KeyValue != null)
                 {
+                    Spell(value.KeyValue.Value.String);
                     //TODO: Fire CorrectKeySelection / IncorrectKeySelection and play sound?
                     //audioService.PlaySound(Settings.Default.KeySelectionSoundFile, Settings.Default.KeySelectionSoundVolume);
                     //if (IncorrectKeySelection != null)

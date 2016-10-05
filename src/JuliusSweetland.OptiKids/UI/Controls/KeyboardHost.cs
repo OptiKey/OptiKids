@@ -38,19 +38,9 @@ namespace JuliusSweetland.OptiKids.UI.Controls
         #endregion
 
         #region Properties
-
-        public static readonly DependencyProperty InputServiceProperty =
-            DependencyProperty.Register("InputService", typeof(IInputService),
-                typeof(KeyboardHost), new PropertyMetadata(default(IInputService)));
-
-        public IInputService InputService
-        {
-            get { return (InputService)GetValue(InputServiceProperty); }
-            set { SetValue(InputServiceProperty, value); }
-        }
-
-        public static readonly DependencyProperty AlphabetProperty =
-            DependencyProperty.Register("Alphabet", typeof (string), typeof (KeyboardHost),
+        
+        public static readonly DependencyProperty LettersProperty =
+            DependencyProperty.Register("Letters", typeof (string), typeof (KeyboardHost),
                 new PropertyMetadata(default(string),
                     (o, args) =>
                     {
@@ -61,10 +51,10 @@ namespace JuliusSweetland.OptiKids.UI.Controls
                         }
                     }));
 
-        public string Alphabet
+        public string Letters
         {
-            get { return (string) GetValue(AlphabetProperty); }
-            set { SetValue(AlphabetProperty, value); }
+            get { return (string) GetValue(LettersProperty); }
+            set { SetValue(LettersProperty, value); }
         }
 
         public static readonly DependencyProperty PointToKeyValueMapProperty =
@@ -120,21 +110,46 @@ namespace JuliusSweetland.OptiKids.UI.Controls
 
         private void GenerateContent()
         {
-            //Log.DebugFormat("GenerateContent called. Keyboard language is '{0}' and Keyboard type is '{1}'", 
-            //    Settings.Default.KeyboardAndDictionaryLanguage, Keyboard != null ? Keyboard.GetType() : null);
+            Log.DebugFormat("GenerateContent called. Letters property is '{0}'", Letters);
 
-            ////Clear out point to key map and pause input service
-            //PointToKeyValueMap = null;
-            //if(InputService != null)
-            //{
-            //    InputService.RequestSuspend();
-            //}
-            
-            //object newContent = ErrorContent;
+            //Clear out point to key map
+            PointToKeyValueMap = null;
 
-            
+            object newContent = ErrorContent;
 
-            //Content = newContent;
+            if (Letters != null)
+            {
+                var rowsOfLetters = Letters.Split('|');
+                var grid = new Grid { HorizontalAlignment = HorizontalAlignment.Stretch, VerticalAlignment = VerticalAlignment.Stretch };
+                var rows = rowsOfLetters.Length;
+                var columns = rowsOfLetters.Max(row => row.Length);
+                for (var rowIndex = 0; rowIndex < rows; rowIndex++)
+                {
+                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                }
+                for (var columnIndex = 0; columnIndex < columns; columnIndex++)
+                {
+                    grid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+                }
+                for (var r = 0; r < rowsOfLetters.Length; r++)
+                {
+                    for (var c = 0; c < rowsOfLetters[r].Length; c++)
+                    {
+                        var letter = rowsOfLetters[r][c].ToString();
+                        var key = new Key
+                        {
+                            Text = letter,
+                            Value = new KeyValue(letter)
+                        };
+                        Grid.SetRow(key, r);
+                        Grid.SetColumn(key, c);
+                        grid.Children.Add(key);
+                    }
+                }
+                newContent = grid;
+            }
+
+            Content = newContent;
         }
 
         #endregion
@@ -147,11 +162,6 @@ namespace JuliusSweetland.OptiKids.UI.Controls
             if (keyboardHost != null)
             {
                 keyboardHost.BuildPointToKeyMap();
-
-                if (keyboardHost.InputService != null)
-                {
-                    keyboardHost.InputService.RequestResume();
-                }
             }
         }
         

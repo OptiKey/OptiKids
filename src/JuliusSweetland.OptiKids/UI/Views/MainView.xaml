@@ -15,6 +15,23 @@
     </UserControl.Resources>
 
     <Grid>
+        <controls:KeyboardHost Letters="{Binding Letters, Mode=OneWay}"
+                               PointToKeyValueMap="{Binding PointToKeyValueMap, Mode=OneWayToSource}">
+            <controls:KeyboardHost.ErrorContent>
+                <Border Background="Black">
+                    <Viewbox>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+                            <TextBlock Text="{x:Static resx:Resources.PROBLEM_LOADING_KEYBOARD}" HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center" Foreground="DarkRed"  Margin="10" />
+                            <TextBlock Text="{x:Static resx:Resources.UNABLE_TO_RENDER_KEYBOARD}"
+                                            HorizontalAlignment="Center" VerticalAlignment="Center" 
+                                            Foreground="DarkRed" Margin="10" />
+                        </StackPanel>
+                    </Viewbox>
+                </Border>
+            </controls:KeyboardHost.ErrorContent>
+        </controls:KeyboardHost>
+
         <Image Stretch="Uniform" Source="{Binding ImagePath}">
             <Image.Style>
                 <Style TargetType="{x:Type Image}">
@@ -27,21 +44,5 @@
                 </Style>
             </Image.Style>
         </Image>
-        <!--<controls:KeyboardHost Keyboard="{Binding Keyboard, Mode=OneWay}"
-                               PointToKeyValueMap="{Binding PointToKeyValueMap, Mode=OneWayToSource}">
-            <controls:KeyboardHost.ErrorContent>
-                <Border Background="Black">
-                    <Viewbox>
-                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
-                            <TextBlock Text="{x:Static resx:Resources.PROBLEM_LOADING_KEYBOARD}" HorizontalAlignment="Center" 
-                                            VerticalAlignment="Center" Foreground="DarkRed"  Margin="10" />
-                            <TextBlock Text="{x:Static resx:Resources.INVALID_KEYBOARD_AND_LANGUAGE_ERROR}"
-                                            HorizontalAlignment="Center" VerticalAlignment="Center" 
-                                            Foreground="DarkRed" Margin="10" />
-                        </StackPanel>
-                    </Viewbox>
-                </Border>
-            </controls:KeyboardHost.ErrorContent>
-        </controls:KeyboardHost>-->
     </Grid>
 </UserControl>
