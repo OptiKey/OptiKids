@@ -350,7 +350,7 @@ namespace JuliusSweetland.OptiKids.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("00:00:01.2500000")]
+        [global::System.Configuration.DefaultSettingValueAttribute("00:00:01.5000000")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public global::System.TimeSpan KeySelectionTriggerFixationCompleteTime {
             get {
@@ -462,6 +462,32 @@ namespace JuliusSweetland.OptiKids.Properties {
             }
             set {
                 this["MinImageDisplayTimeInSeconds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public int MinDelayBeforeProgressingInSeconds {
+            get {
+                return ((int)(this["MinDelayBeforeProgressingInSeconds"]));
+            }
+            set {
+                this["MinDelayBeforeProgressingInSeconds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public int ScratchpadNumberOfLines {
+            get {
+                return ((int)(this["ScratchpadNumberOfLines"]));
+            }
+            set {
+                this["ScratchpadNumberOfLines"] = value;
             }
         }
     }

@@ -78,7 +78,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="KeySelectionTriggerFixationCompleteTime" Roaming="true" Type="System.TimeSpan" Scope="User">
-      <Value Profile="(Default)">00:00:01.2500000</Value>
+      <Value Profile="(Default)">00:00:01.5000000</Value>
     </Setting>
     <Setting Name="PointsSource" Roaming="true" Type="JuliusSweetland.OptiKids.Enums.PointsSources" Scope="User">
       <Value Profile="(Default)">MousePosition</Value>
@@ -103,6 +103,12 @@
     </Setting>
     <Setting Name="MinImageDisplayTimeInSeconds" Roaming="true" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="MinDelayBeforeProgressingInSeconds" Roaming="true" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="ScratchpadNumberOfLines" Roaming="true" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -32,10 +32,10 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         private int questionIndex = 0;
         private string imagePath;
         private string word;
+        private int wordIndex = 0;
         private string wordProgress;
         private string letters;
-        private int letterIndex = 0;
-        private int letterGuessCount = 0;
+        private int guessCount = 0;
 
         #endregion
 
@@ -96,7 +96,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             set { SetProperty(ref letters, value); }
         }
 
-        private string WordProgress
+        public string WordProgress
         {
             get { return wordProgress; }
             set { SetProperty(ref wordProgress, value); }
@@ -126,10 +126,8 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
 
             if (question != null)
             {
-                word = questions[questionIndex].Word;
-                WordProgress = quiz.DisplayWordMasks
-                    ? word.Select(c => '_').ToString()
-                    : null;
+                word = questions[questionIndex].Word.Trim();
+                WordProgress = new string(word.Select(c => quiz.DisplayWordMasks ? '_' : ' ').ToArray());
 
                 var orderedLetters = questions[questionIndex].Letters;
                 if (quiz.RandomiseLetters)
@@ -150,7 +148,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
                 InputService.RequestSuspend();
                 ImagePath = question.ImagePath;
                 var minImageDisplayTime = Task.Delay(Settings.Default.MinImageDisplayTimeInSeconds * 1000);
-                var speakTask = Speak(word);
+                var speakTask = Speak(word, quiz.SpellingAudioHints);
                 await Task.WhenAll(minImageDisplayTime, speakTask);
                 ImagePath = null;
                 InputService.RequestResume();
@@ -161,16 +159,16 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             }
         }
 
-        private async Task Speak(string word)
+        private async Task Speak(string text, bool spell)
         {
             var wordTcs = new TaskCompletionSource<bool>(); //Used to make this method awaitable
-            audioService.SpeakNewOrInterruptCurrentSpeech(word, 
+            audioService.SpeakNewOrInterruptCurrentSpeech(text, 
                 () => wordTcs.SetResult(true), null, Settings.Default.WordSpeechRate);
             await wordTcs.Task;
 
-            if (quiz.SpellingAudioHints)
+            if (spell)
             {
-                await Spell(word);
+                await Spell(text);
             }
         }
 
@@ -194,8 +192,16 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         private void ProgressQuestion()
         {
             questionIndex++;
-            letterIndex = 0;
-            letterGuessCount = 0;
+            if (questionIndex == questions.Count)
+            {
+                FinishQuiz();
+            }
+            else
+            {
+                wordIndex = 0;
+                guessCount = 0;
+                SetQuestion();
+            }
         }
 
         private void FinishQuiz()

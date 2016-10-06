@@ -3,19 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:properties="clr-namespace:JuliusSweetland.OptiKids.Properties"
-             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:interactionRequest="http://www.codeplex.com/prism"
              xmlns:controls="clr-namespace:JuliusSweetland.OptiKids.UI.Controls"
              xmlns:resx="clr-namespace:JuliusSweetland.OptiKids.Properties"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </UserControl.Resources>
 
     <Grid>
-        <controls:KeyboardHost Letters="{Binding Letters, Mode=OneWay}"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        
+        <controls:KeyboardHost Grid.Row="0" Letters="{Binding Letters, Mode=OneWay}"
                                PointToKeyValueMap="{Binding PointToKeyValueMap, Mode=OneWayToSource}">
             <controls:KeyboardHost.ErrorContent>
                 <Border Background="Black">
@@ -32,9 +31,12 @@
             </controls:KeyboardHost.ErrorContent>
         </controls:KeyboardHost>
 
-        <Image Stretch="Uniform" Source="{Binding ImagePath}">
-            <Image.Style>
-                <Style TargetType="{x:Type Image}">
+        <controls:Scratchpad Grid.Row="1" Text="{Binding WordProgress, Mode=OneWay}" />
+        <TextBlock Grid.Row="1" Text="{Binding WordProgress, Mode=OneWay}" />
+
+        <Grid Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Black">
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
                     <Setter Property="Visibility" Value="Visible" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding ImagePath}" Value="{x:Null}">
@@ -42,7 +44,8 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </Image.Style>
-        </Image>
+            </Grid.Style>
+            <Image Stretch="Uniform" Source="{Binding ImagePath}" />
+        </Grid>
     </Grid>
 </UserControl>
