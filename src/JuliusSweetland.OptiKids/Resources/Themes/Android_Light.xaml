@@ -213,10 +213,12 @@
                                         <Setter Property="BorderBrush" Value="{StaticResource ScratchpadBorderBrush}" />
                                     </Style>
                                 </Border.Style>
-                                <controls:TextBlockScaler Margin="5">
+                                <controls:TextBlockScaler>
                                     <TextBlock Text="{TemplateBinding Text}"
                                                TextWrapping="Wrap"
                                                TextAlignment="Center"
+                                               HorizontalAlignment="Stretch"
+                                               VerticalAlignment="Stretch"
                                                FontFamily="{Binding Source={x:Static properties:Settings.Default}, Path=FontFamily}"
                                                FontWeight="{Binding Source={x:Static properties:Settings.Default}, Path=FontWeight}"
                                                FontStretch="{Binding Source={x:Static properties:Settings.Default}, Path=FontStretch}"

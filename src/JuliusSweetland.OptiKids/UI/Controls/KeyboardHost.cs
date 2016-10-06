@@ -6,6 +6,7 @@ using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using JuliusSweetland.OptiKids.Extensions;
 using JuliusSweetland.OptiKids.Models;
 using JuliusSweetland.OptiKids.Services;
@@ -146,6 +147,20 @@ namespace JuliusSweetland.OptiKids.UI.Controls
                         grid.Children.Add(key);
                     }
                 }
+                //Add scratchpad
+                grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+                var scratchpad = new Scratchpad
+                {
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    VerticalAlignment = VerticalAlignment.Stretch
+                };
+                var scratchpadTextBinding = new Binding();
+                scratchpadTextBinding.Path = new PropertyPath("WordProgress");
+                scratchpadTextBinding.Mode = BindingMode.OneWay;
+                BindingOperations.SetBinding(scratchpad, Scratchpad.TextProperty, scratchpadTextBinding);
+                Grid.SetRow(scratchpad, rows);
+                Grid.SetColumnSpan(scratchpad, columns);
+                grid.Children.Add(scratchpad);
                 newContent = grid;
             }
 

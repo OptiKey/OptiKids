@@ -9,12 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="1*" />
-        </Grid.RowDefinitions>
-        
-        <controls:KeyboardHost Grid.Row="0" Letters="{Binding Letters, Mode=OneWay}"
+        <controls:KeyboardHost Letters="{Binding Letters, Mode=OneWay}"
                                PointToKeyValueMap="{Binding PointToKeyValueMap, Mode=OneWayToSource}">
             <controls:KeyboardHost.ErrorContent>
                 <Border Background="Black">
@@ -31,10 +26,7 @@
             </controls:KeyboardHost.ErrorContent>
         </controls:KeyboardHost>
 
-        <controls:Scratchpad Grid.Row="1" Text="{Binding WordProgress, Mode=OneWay}" />
-        <TextBlock Grid.Row="1" Text="{Binding WordProgress, Mode=OneWay}" />
-
-        <Grid Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Black">
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Black">
             <Grid.Style>
                 <Style TargetType="{x:Type Grid}">
                     <Setter Property="Visibility" Value="Visible" />
