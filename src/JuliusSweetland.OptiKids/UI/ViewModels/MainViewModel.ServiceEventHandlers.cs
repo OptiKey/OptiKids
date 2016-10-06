@@ -53,14 +53,19 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
                             newWordProgress.Insert(wordIndex, value.KeyValue.Value.String);
                             WordProgress = newWordProgress.ToString();
                             wordIndex++;
-                            await Spell(value.KeyValue.Value.String);
+
                             if (WordProgress == word)
                             {
                                 //Word complete
-                                var minDelayBeforeProgressing = Task.Delay(Settings.Default.MinDelayBeforeProgressingInSeconds * 1000);
+                                await Spell(value.KeyValue.Value.String);
+                                var minDelayBeforeProgressing = Task.Delay(Settings.Default.MinDelayBeforeProgressingInSeconds*1000);
                                 var speakTask = Speak(word, false);
                                 await Task.WhenAll(minDelayBeforeProgressing, speakTask);
                                 ProgressQuestion();
+                            }
+                            else
+                            {
+                                Spell(value.KeyValue.Value.String);
                             }
                         }
                     }
@@ -71,7 +76,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
                         {
                             Log.InfoFormat("Firing IncorrectKeySelection event with KeyValue '{0}'", value.KeyValue.Value);
                             IncorrectKeySelection(this, value.KeyValue.Value);
-                            await Spell(value.KeyValue.Value.String);
+                            Spell(value.KeyValue.Value.String);
                         }
                     }
 
