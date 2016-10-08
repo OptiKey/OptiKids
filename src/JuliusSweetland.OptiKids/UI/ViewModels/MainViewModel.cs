@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Speech.Synthesis;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ using JuliusSweetland.OptiKids.Models;
 using JuliusSweetland.OptiKids.Properties;
 using JuliusSweetland.OptiKids.Services;
 using log4net;
+using Newtonsoft.Json;
+using Prism.Commands;
 using Prism.Mvvm;
 
 namespace JuliusSweetland.OptiKids.UI.ViewModels
@@ -22,8 +25,9 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         private readonly IAudioService audioService;
         private readonly IInputService inputService;
         private readonly IKeyStateService keyStateService;
+        private readonly List<INotifyErrors> errorNotifyingServices;
         private readonly Dictionary<char, string> pronunciation;
-        private readonly Quiz quiz;
+        private Quiz quiz;
         
         private KeyValue? currentPositionKey;
         private Dictionary<Rect, KeyValue> pointToKeyValueMap;
@@ -36,19 +40,23 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         private string wordProgress;
         private string letters;
         private int guessCount = 0;
+        private QuizStates quizState = QuizStates.WaitingToStart;
 
         #endregion
 
         #region Ctor
 
         public MainViewModel(IAudioService audioService, IInputService inputService, 
-            IKeyStateService keyStateService, Dictionary<char, string> pronunciation, Quiz quiz)
+            IKeyStateService keyStateService, List<INotifyErrors> errorNotifyingServices, 
+            Dictionary<char, string> pronunciation)
         {
             this.audioService = audioService;
             this.inputService = inputService;
             this.keyStateService = keyStateService;
+            this.errorNotifyingServices = errorNotifyingServices;
             this.pronunciation = pronunciation;
-            this.quiz = quiz;
+
+            StartQuizCommand = new DelegateCommand(StartQuiz);
         }
 
         #endregion
@@ -84,6 +92,12 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             set { SetProperty(ref currentPositionKey, value); }
         }
 
+        public QuizStates QuizState
+        {
+            get { return quizState; }
+            set { SetProperty(ref quizState, value); }
+        }
+
         public string ImagePath
         {
             get { return imagePath; }
@@ -102,12 +116,28 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             set { SetProperty(ref wordProgress, value); }
         }
 
+        public DelegateCommand StartQuizCommand { get; private set; }
+
         #endregion
 
         #region Methods
 
         public void StartQuiz()
         {
+            quiz = null;
+            try
+            {
+                var quizString = File.ReadAllText(Settings.Default.QuizFile);
+                quiz = JsonConvert.DeserializeObject<Quiz>(quizString);
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("Unable to load and deserialise the quiz file. Exception message:{0}\nStackTrace:{1}", ex.Message, ex.StackTrace);
+                RaiseToastNotification(Resources.CANNOT_START_QUIZ_TITLE, Resources.CANNOT_START_QUIZ_CONTENT, NotificationTypes.Error, null);
+                return;
+            }
+
+            QuizState = QuizStates.Running;
             questions = quiz.Questions;
             if (quiz.RandomiseWords)
             {
@@ -115,7 +145,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
                 questions = questions.OrderBy(x => rnd.Next()).ToList();
             }
             questionIndex = 0;
-            SetQuestion();
+            RaiseToastNotification(Resources.START_QUIZ_TITLE, Resources.START_QUIZ_CONTENT, NotificationTypes.Normal, SetQuestion);
         }
 
         private async void SetQuestion()
@@ -159,11 +189,12 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             }
         }
 
-        private async Task Speak(string text, bool spell)
+        private async Task Speak(string text, bool spell, int? overrideSpeakRate = null)
         {
             var wordTcs = new TaskCompletionSource<bool>(); //Used to make this method awaitable
             audioService.SpeakNewOrInterruptCurrentSpeech(text, 
-                () => wordTcs.SetResult(true), null, Settings.Default.WordSpeechRate);
+                () => wordTcs.SetResult(true), null, 
+                overrideSpeakRate != null ? overrideSpeakRate.Value : Settings.Default.WordSpeechRate);
             await wordTcs.Task;
 
             if (spell)
@@ -192,21 +223,16 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         private void ProgressQuestion()
         {
             questionIndex++;
-            if (questionIndex == questions.Count)
-            {
-                FinishQuiz();
-            }
-            else
-            {
-                wordIndex = 0;
-                guessCount = 0;
-                SetQuestion();
-            }
+            wordIndex = 0;
+            guessCount = 0;
+            SetQuestion();
         }
 
         private void FinishQuiz()
         {
-            //TODO: Finish quiz
+            QuizState = QuizStates.Finished;
+            RaiseToastNotification(Resources.QUIZ_COMPLETE_TITLE, Resources.QUIZ_COMPLETE_CONTENT, 
+                NotificationTypes.Normal, () => QuizState = QuizStates.WaitingToStart);
         }
 
         public void FireCorrectKeySelectionEvent(KeyValue kv)

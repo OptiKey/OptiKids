@@ -1,5 +1,9 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using JuliusSweetland.OptiKids.Enums;
 using JuliusSweetland.OptiKids.Models;
 using JuliusSweetland.OptiKids.Properties;
 
@@ -10,6 +14,11 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         public void AttachServiceEventHandlers()
         {
             Log.Info("AttachServiceEventHandlers called.");
+
+            if (errorNotifyingServices != null)
+            {
+                errorNotifyingServices.ForEach(s => s.Error += HandleServiceError);
+            }
 
             inputService.CurrentPosition += (o, tuple) =>
             {
@@ -58,9 +67,16 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
                             {
                                 //Word complete
                                 await Spell(value.KeyValue.Value.String);
-                                var minDelayBeforeProgressing = Task.Delay(Settings.Default.MinDelayBeforeProgressingInSeconds*1000);
-                                var speakTask = Speak(word, false);
-                                await Task.WhenAll(minDelayBeforeProgressing, speakTask);
+                                if (Settings.Default.PlayEncouragementOnCorrectlySpelledWord)
+                                {
+                                    var rnd = new Random();
+                                    var encouragement =
+                                        Resources.CORRECT_SPELLING_ENCOURAGEMENTS.Split('|')
+                                            .OrderBy(x => rnd.Next())
+                                            .First();
+                                    await Speak(encouragement, false, 0);
+                                }
+                                await Task.Delay(Settings.Default.MinDelayBeforeProgressingInSeconds*1000);
                                 ProgressQuestion();
                             }
                             else
@@ -85,6 +101,15 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             };
 
             inputService.PointToKeyValueMap = pointToKeyValueMap;
+        }
+
+        private void HandleServiceError(object sender, Exception exception)
+        {
+            Log.Error("Error event received from service. Raising ErrorNotificationRequest and playing ErrorSoundFile (from settings)", exception);
+
+            inputService.RequestSuspend();
+            audioService.PlaySound(Settings.Default.ErrorSoundFile, Settings.Default.ErrorSoundVolume);
+            RaiseToastNotification(Resources.CRASH_TITLE, exception.Message, NotificationTypes.Error, () => inputService.RequestResume());
         }
     }
 }

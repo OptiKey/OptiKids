@@ -61,115 +61,6 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        public static string ADD_DICTIONARY_ENTRY {
-            get {
-                return ResourceManager.GetString("ADD_DICTIONARY_ENTRY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add new entry:.
-        /// </summary>
-        public static string ADD_NEW_ENTRY_TO_DICTIONARY {
-            get {
-                return ResourceManager.GetString("ADD_NEW_ENTRY_TO_DICTIONARY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Would you like to add the phrase &apos;{0}&apos; to the dictionary with shortcut &apos;{1}&apos;?.
-        /// </summary>
-        public static string ADD_PHRASE_TO_DICTIONARY_CONFIRMATION_MESSAGE {
-            get {
-                return ResourceManager.GetString("ADD_PHRASE_TO_DICTIONARY_CONFIRMATION_MESSAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ADD TO DICTIONARY.
-        /// </summary>
-        public static string ADD_TO_DICTIONARY {
-            get {
-                return ResourceManager.GetString("ADD_TO_DICTIONARY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ADD TO
-        ///DICTIONARY.
-        /// </summary>
-        public static string ADD_TO_DICTIONARY_SPLIT_WITH_NEWLINE {
-            get {
-                return ResourceManager.GetString("ADD_TO_DICTIONARY_SPLIT_WITH_NEWLINE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Would you like to add the word &apos;{0}&apos; to the dictionary?.
-        /// </summary>
-        public static string ADD_WORD_TO_DICTIONARY_CONFIRMATION_MESSAGE {
-            get {
-                return ResourceManager.GetString("ADD_WORD_TO_DICTIONARY_CONFIRMATION_MESSAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Added.
-        /// </summary>
-        public static string ADDED {
-            get {
-                return ResourceManager.GetString("ADDED", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ADJUST AMOUNT IN PIXELS.
-        /// </summary>
-        public static string ADJUST_AMOUNT_IN_PIXELS {
-            get {
-                return ResourceManager.GetString("ADJUST_AMOUNT_IN_PIXELS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Adjust by {0} pixel|Adjust by {0} pixels.
-        /// </summary>
-        public static string ADJUST_BY {
-            get {
-                return ResourceManager.GetString("ADJUST_BY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LETTERS.
-        /// </summary>
-        public static string ALPHA {
-            get {
-                return ResourceManager.GetString("ALPHA", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Letters.
-        /// </summary>
-        public static string ALPHA_LAYOUT {
-            get {
-                return ResourceManager.GetString("ALPHA_LAYOUT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ALT.
-        /// </summary>
-        public static string ALT {
-            get {
-                return ResourceManager.GetString("ALT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Android Dark.
         /// </summary>
         public static string ANDROID_DARK {
@@ -188,89 +79,6 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auto capitalise words:.
-        /// </summary>
-        public static string AUTO_CAPITALISE_WORDS_LABEL {
-            get {
-                return ResourceManager.GetString("AUTO_CAPITALISE_WORDS_LABEL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Auto complete words:.
-        /// </summary>
-        public static string AUTO_COMPLETE_WORDS_LABEL {
-            get {
-                return ResourceManager.GetString("AUTO_COMPLETE_WORDS_LABEL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Automatic sentence adjustments.
-        /// </summary>
-        public static string AUTO_SENTENCE_ADJUSTMENTS {
-            get {
-                return ResourceManager.GetString("AUTO_SENTENCE_ADJUSTMENTS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Auto space between words:.
-        /// </summary>
-        public static string AUTO_SPACE_BETWEEN_WORDS_LABEL {
-            get {
-                return ResourceManager.GetString("AUTO_SPACE_BETWEEN_WORDS_LABEL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BACK.
-        /// </summary>
-        public static string BACK {
-            get {
-                return ResourceManager.GetString("BACK", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BACK ONE.
-        /// </summary>
-        public static string BACK_ONE {
-            get {
-                return ResourceManager.GetString("BACK_ONE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BACK
-        ///ONE.
-        /// </summary>
-        public static string BACK_ONE_SPLIT_WITH_NEWLINE {
-            get {
-                return ResourceManager.GetString("BACK_ONE_SPLIT_WITH_NEWLINE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BACK WORD.
-        /// </summary>
-        public static string BACK_WORD {
-            get {
-                return ResourceManager.GetString("BACK_WORD", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to BACK
-        ///WORD.
-        /// </summary>
-        public static string BACK_WORD_SPLIT_WITH_NEWLINE {
-            get {
-                return ResourceManager.GetString("BACK_WORD_SPLIT_WITH_NEWLINE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Bass was unable to create a stream from file &apos;{0}&apos;.
         /// </summary>
         public static string BASS_UNABLE_TO_CREATE_STREAM_FROM_FILE {
@@ -280,120 +88,20 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bottom.
+        ///   Looks up a localized string similar to Unable to start the quiz. Please check the quiz file and try again....
         /// </summary>
-        public static string BOTTOM {
+        public static string CANNOT_START_QUIZ_CONTENT {
             get {
-                return ResourceManager.GetString("BOTTOM", resourceCulture);
+                return ResourceManager.GetString("CANNOT_START_QUIZ_CONTENT", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to BREAK.
+        ///   Looks up a localized string similar to UH-OH!.
         /// </summary>
-        public static string BREAK {
+        public static string CANNOT_START_QUIZ_TITLE {
             get {
-                return ResourceManager.GetString("BREAK", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Calibration aborted with message: &apos;{0}&apos;.
-        /// </summary>
-        public static string CALIBRATION_ABORT_MESSAGE {
-            get {
-                return ResourceManager.GetString("CALIBRATION_ABORT_MESSAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you would like to re-calibrate?.
-        /// </summary>
-        public static string CALIBRATION_CONFIRMATION_MESSAGE {
-            get {
-                return ResourceManager.GetString("CALIBRATION_CONFIRMATION_MESSAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred during calibration. Message: &apos;{0}&apos;.
-        /// </summary>
-        public static string CALIBRATION_ERROR_MESSAGE {
-            get {
-                return ResourceManager.GetString("CALIBRATION_ERROR_MESSAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Calibration failed with message: &apos;{0}&apos;.
-        /// </summary>
-        public static string CALIBRATION_FAIL_MESSAGE {
-            get {
-                return ResourceManager.GetString("CALIBRATION_FAIL_MESSAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Calibration failed!.
-        /// </summary>
-        public static string CALIBRATION_FAIL_NO_MESSAGE {
-            get {
-                return ResourceManager.GetString("CALIBRATION_FAIL_NO_MESSAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Calibration cannot be completed without manual intervention, e.g. having to use a mouse. You may be stuck in the calibration process if you cannot manually interact with your computer.
-        ///Are you sure you would like to re-calibrate?.
-        /// </summary>
-        public static string CALIBRATION_REQUIRES_MANUAL_INTERACTION {
-            get {
-                return ResourceManager.GetString("CALIBRATION_REQUIRES_MANUAL_INTERACTION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Calibration stopped for an unknown reason. Message: &apos;{0}&apos;.
-        /// </summary>
-        public static string CALIBRATION_STOPPED_MESSAGE {
-            get {
-                return ResourceManager.GetString("CALIBRATION_STOPPED_MESSAGE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Calibration success!.
-        /// </summary>
-        public static string CALIBRATION_SUCCESS {
-            get {
-                return ResourceManager.GetString("CALIBRATION_SUCCESS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Calibration success! Accuracy (Avg Error Degree = {0}).
-        /// </summary>
-        public static string CALIBRATION_SUCCESS_WITH_ACCURACY {
-            get {
-                return ResourceManager.GetString("CALIBRATION_SUCCESS_WITH_ACCURACY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to CANCEL.
-        /// </summary>
-        public static string CANCEL {
-            get {
-                return ResourceManager.GetString("CANCEL", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Capture timeout (ms):.
-        /// </summary>
-        public static string CAPTURE_TIMEOUT_LABEL {
-            get {
-                return ResourceManager.GetString("CAPTURE_TIMEOUT_LABEL", resourceCulture);
+                return ResourceManager.GetString("CANNOT_START_QUIZ_TITLE", resourceCulture);
             }
         }
         
@@ -594,6 +302,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         public static string CONVERSATION_ONLY_MODE_LABEL {
             get {
                 return ResourceManager.GetString("CONVERSATION_ONLY_MODE_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Correct!|That’s right!|You did it!|Well done!|That is correct!|Nicely done!|Nice!|Good spelling!|Yes!|Amazing!|You’re very good at spelling!|That’s great!|Excellent!|Brilliant!|Absolutely right!|Exactly right!|Nice! Keep going!|Perfect!|You got it!.
+        /// </summary>
+        public static string CORRECT_SPELLING_ENCOURAGEMENTS {
+            get {
+                return ResourceManager.GetString("CORRECT_SPELLING_ENCOURAGEMENTS", resourceCulture);
             }
         }
         
@@ -1634,6 +1351,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         public static string INTELLIGENTLY_SUPPRESS_AUTO_CAPS {
             get {
                 return ResourceManager.GetString("INTELLIGENTLY_SUPPRESS_AUTO_CAPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hello there!.
+        /// </summary>
+        public static string INTRO_SCREEN_TITLE {
+            get {
+                return ResourceManager.GetString("INTRO_SCREEN_TITLE", resourceCulture);
             }
         }
         
@@ -3348,6 +3074,33 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You completed the quiz. Congratulations!.
+        /// </summary>
+        public static string QUIZ_COMPLETE_CONTENT {
+            get {
+                return ResourceManager.GetString("QUIZ_COMPLETE_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to WOO-HOO!.
+        /// </summary>
+        public static string QUIZ_COMPLETE_TITLE {
+            get {
+                return ResourceManager.GetString("QUIZ_COMPLETE_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which quiz should we run?.
+        /// </summary>
+        public static string QUIZ_FILE {
+            get {
+                return ResourceManager.GetString("QUIZ_FILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rate:.
         /// </summary>
         public static string RATE_LABEL {
@@ -4020,6 +3773,33 @@ namespace JuliusSweetland.OptiKids.Properties {
         public static string SPEECH {
             get {
                 return ResourceManager.GetString("SPEECH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string START_QUIZ_BUTTON {
+            get {
+                return ResourceManager.GetString("START_QUIZ_BUTTON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Good luck. You&apos;ll be great!.
+        /// </summary>
+        public static string START_QUIZ_CONTENT {
+            get {
+                return ResourceManager.GetString("START_QUIZ_CONTENT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting!.
+        /// </summary>
+        public static string START_QUIZ_TITLE {
+            get {
+                return ResourceManager.GetString("START_QUIZ_TITLE", resourceCulture);
             }
         }
         

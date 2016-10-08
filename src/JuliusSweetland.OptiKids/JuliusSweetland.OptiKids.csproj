@@ -190,6 +190,7 @@
     <Compile Include="Enums\DataStreamProcessingLevels.cs" />
     <Compile Include="Enums\EyeXSensitivities.cs" />
     <Compile Include="Enums\FontStretches.cs" />
+    <Compile Include="Enums\QuizStates.cs" />
     <Compile Include="Enums\FontWeights.cs" />
     <Compile Include="Enums\Keys.cs" />
     <Compile Include="Enums\MouseButtons.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Extensions\PropertyExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\UiElementExtensions.cs" />
+    <Compile Include="Extensions\WindowExtensions.cs" />
     <Compile Include="Models\KeyValueAndTimeSpan.cs" />
     <Compile Include="Models\NotificationEventArgs.cs" />
     <Compile Include="Models\NotifyingConcurrentDictionary.cs" />
@@ -254,6 +256,8 @@
     <Compile Include="UI\Controls\Key.cs" />
     <Compile Include="UI\Controls\TextBlockScaler.cs" />
     <Compile Include="UI\Controls\KeyboardHost.cs" />
+    <Compile Include="UI\Controls\ToastNotification.cs" />
+    <Compile Include="UI\Controls\ToastNotificationPopup.cs" />
     <Compile Include="UI\ValueConverters\ConvertToStarGridLength.cs" />
     <Compile Include="UI\ValueConverters\FontSizeToFitLines.cs" />
     <Compile Include="UI\ValueConverters\LengthDividedBySpan.cs" />
@@ -283,6 +287,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Images\dog.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\Tone1.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\Tone2.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\Tone3.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sounds\Tone4.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Resources\Icons\Main.ico" />
@@ -413,7 +429,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Native\MyGaze\Enums\" />
-    <Folder Include="Resources\Sounds\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

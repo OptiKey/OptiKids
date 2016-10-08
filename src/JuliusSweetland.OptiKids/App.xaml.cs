@@ -109,12 +109,6 @@ namespace JuliusSweetland.OptiKids
 
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
-            //var quiz2 = new Quiz("test", true, true, 1, true, true, true, 2, new List<Question>
-            //{
-            //    new Question("word", "letters", @"Resources\Images\cat.jpg")
-            //});
-            //var json = JsonConvert.SerializeObject(quiz2);
-
             try
             {
                 Log.Info("Boot strapping the services and UI.");
@@ -123,23 +117,25 @@ namespace JuliusSweetland.OptiKids
                 applyTheme();
 
                 //Create services
+                var errorNotifyingServices = new List<INotifyErrors>();
                 IAudioService audioService = new AudioService();
                 IKeyStateService keyStateService = new KeyStateService();
                 IInputService inputService = CreateInputService();
+                errorNotifyingServices.Add(audioService);
+                errorNotifyingServices.Add(inputService);
 
                 //Load pronunciation and quiz from files
                 var pronunciation = LoadPronunciation();
-                var quiz = LoadQuiz();
                 
                 //Compose UI
-                var mainViewModel = new MainViewModel(audioService, inputService, keyStateService, pronunciation, quiz);
+                var mainViewModel = new MainViewModel(audioService, inputService, 
+                    keyStateService, errorNotifyingServices, pronunciation);
                 mainWindow.MainView.DataContext = mainViewModel;
 
                 //Setup actions to take once main view is loaded (i.e. the view is ready, so hook up the services which kicks everything off)
                 Action postMainViewLoaded = () =>
                 {
                     mainViewModel.AttachServiceEventHandlers();
-                    mainViewModel.StartQuiz();
                 };
                 if(mainWindow.MainView.IsLoaded)
                 {
@@ -314,19 +310,13 @@ namespace JuliusSweetland.OptiKids
 
         #endregion
 
-        #region Load Pronunciation and Quiz From Files
+        #region Load Pronunciation
 
         //https://msdn.microsoft.com/en-us/library/office/hh361601(v=office.14).aspx#PhoneTables
         private Dictionary<char, string> LoadPronunciation()
         {
             var pronunciationString = File.ReadAllText(Settings.Default.PronunciationFile);
             return JsonConvert.DeserializeObject<Dictionary<char, string>>(pronunciationString);
-        }
-
-        private Quiz LoadQuiz()
-        {
-            var quizString = File.ReadAllText(Settings.Default.QuizFile);
-            return JsonConvert.DeserializeObject<Quiz>(quizString);
         }
 
         #endregion

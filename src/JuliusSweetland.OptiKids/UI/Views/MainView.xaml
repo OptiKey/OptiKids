@@ -5,10 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:JuliusSweetland.OptiKids.UI.Controls"
              xmlns:resx="clr-namespace:JuliusSweetland.OptiKids.Properties"
+             xmlns:enums="clr-namespace:JuliusSweetland.OptiKids.Enums"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-
+    
     <Grid>
+        <!-- KEYBOARD HOST = KEYBOARD AND SCRATCHPAD -->
         <controls:KeyboardHost Letters="{Binding Letters, Mode=OneWay}"
                                PointToKeyValueMap="{Binding PointToKeyValueMap, Mode=OneWayToSource}">
             <controls:KeyboardHost.ErrorContent>
@@ -26,6 +28,7 @@
             </controls:KeyboardHost.ErrorContent>
         </controls:KeyboardHost>
 
+        <!-- IMAGE WITH BLACK BACKGROUND -->
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Black">
             <Grid.Style>
                 <Style TargetType="{x:Type Grid}">
@@ -39,5 +42,166 @@
             </Grid.Style>
             <Image Stretch="Uniform" Source="{Binding ImagePath}" />
         </Grid>
+
+        <!-- QUIZ WAITING TO START & FINISHED BACKGROUND -->
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Black">
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding QuizState}" Value="{x:Static enums:QuizStates.Running}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+        </Grid>
+
+        <!-- QUIZ SETUP -->
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
+            <Grid.Style>
+                <Style TargetType="{x:Type Grid}">
+                    <Setter Property="Visibility" Value="Hidden" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding QuizState}" Value="{x:Static enums:QuizStates.WaitingToStart}">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <controls:TextBlockScaler Grid.Row="1" Grid.ColumnSpan="4" Margin="10">
+                <TextBlock HorizontalAlignment="Stretch" 
+                           VerticalAlignment="Center" 
+                           TextAlignment="Center"
+                           Text="{x:Static resx:Resources.INTRO_SCREEN_TITLE}"
+                           FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
+                           FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
+                           FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
+            </controls:TextBlockScaler>
+            <controls:TextBlockScaler Grid.Row="2" Grid.ColumnSpan="4" Margin="10">
+                <TextBlock HorizontalAlignment="Stretch" 
+                           VerticalAlignment="Center" 
+                           TextAlignment="Center"
+                           Text="{x:Static resx:Resources.QUIZ_FILE}"
+                           FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
+                           FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
+                           FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
+            </controls:TextBlockScaler>
+            <controls:TextBlockScaler Grid.Row="3" Grid.Column="1" Margin="10">
+                <TextBlock HorizontalAlignment="Stretch" 
+                           VerticalAlignment="Center" 
+                           TextAlignment="Center"
+                           Text="{Binding Source={x:Static resx:Settings.Default}, Path=QuizFile}"
+                           FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
+                           FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
+                           FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
+            </controls:TextBlockScaler>
+            <Button Grid.Row="3" Grid.Column="2" Margin="20"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Click="LookupQuizFile_OnClick">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border x:Name="Border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="PaleGreen" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkGreen" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Content>
+                    <controls:TextBlockScaler>
+                        <TextBlock HorizontalAlignment="Stretch" 
+                               VerticalAlignment="Center" 
+                               TextAlignment="Center"
+                               Text="..."
+                               FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
+                               FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
+                               FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
+                    </controls:TextBlockScaler>
+                </Button.Content>
+            </Button>
+            <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="20"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding StartQuizCommand}">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <Border x:Name="Border"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}">
+                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="PaleGreen" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkGreen" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+                <Button.Content>
+                    <controls:TextBlockScaler Margin="10">
+                        <TextBlock HorizontalAlignment="Stretch" 
+                               VerticalAlignment="Center" 
+                               TextAlignment="Center"
+                               Text="{x:Static resx:Resources.START_QUIZ_BUTTON}"
+                               FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
+                               FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
+                               FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
+                    </controls:TextBlockScaler>
+                </Button.Content>
+            </Button>
+        </Grid>
+
+        <!-- TOAST NOTIFICATION POPUP -->
+        <controls:ToastNotificationPopup Placement="AbsolutePoint" AllowsTransparency="True" IsOpen="False">
+            <controls:ToastNotification RenderTransformOrigin="0,1">
+                <!--<controls:ToastNotification.Template>
+                    <ControlTemplate TargetType="{x:Type controls:ToastNotification}">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Yellow"></Grid>        
+                    </ControlTemplate>
+                </controls:ToastNotification.Template>-->
+                <controls:ToastNotification.RenderTransform>
+                    <ScaleTransform ScaleY="1" />
+                </controls:ToastNotification.RenderTransform>
+            </controls:ToastNotification>
+        </controls:ToastNotificationPopup>
     </Grid>
 </UserControl>

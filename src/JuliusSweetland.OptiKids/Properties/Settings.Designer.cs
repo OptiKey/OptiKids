@@ -116,7 +116,7 @@ namespace JuliusSweetland.OptiKids.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0.02")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.1")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
         public decimal ToastNotificationSecondsPerCharacter {
             get {
@@ -488,6 +488,45 @@ namespace JuliusSweetland.OptiKids.Properties {
             }
             set {
                 this["ScratchpadNumberOfLines"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Resources\\Sounds\\Tone2.wav")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public string ErrorSoundFile {
+            get {
+                return ((string)(this["ErrorSoundFile"]));
+            }
+            set {
+                this["ErrorSoundFile"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public int ErrorSoundVolume {
+            get {
+                return ((int)(this["ErrorSoundVolume"]));
+            }
+            set {
+                this["ErrorSoundVolume"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
+        public bool PlayEncouragementOnCorrectlySpelledWord {
+            get {
+                return ((bool)(this["PlayEncouragementOnCorrectlySpelledWord"]));
+            }
+            set {
+                this["PlayEncouragementOnCorrectlySpelledWord"] = value;
             }
         }
     }
