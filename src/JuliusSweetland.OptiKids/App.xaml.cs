@@ -17,6 +17,7 @@ using JuliusSweetland.OptiKids.Observables.TriggerSources;
 using JuliusSweetland.OptiKids.Properties;
 using JuliusSweetland.OptiKids.Services;
 using JuliusSweetland.OptiKids.UI.ViewModels;
+using JuliusSweetland.OptiKids.UI.Views;
 using JuliusSweetland.OptiKids.UI.Windows;
 using log4net;
 using log4net.Appender;
@@ -130,14 +131,15 @@ namespace JuliusSweetland.OptiKids
                 //Compose UI
                 var mainViewModel = new MainViewModel(audioService, inputService, 
                     keyStateService, errorNotifyingServices, pronunciation);
-                mainWindow.MainView.DataContext = mainViewModel;
+                var mainView = new MainView {DataContext = mainViewModel};
+                mainWindow.Content = mainView;
 
                 //Setup actions to take once main view is loaded (i.e. the view is ready, so hook up the services which kicks everything off)
                 Action postMainViewLoaded = () =>
                 {
                     mainViewModel.AttachServiceEventHandlers();
                 };
-                if(mainWindow.MainView.IsLoaded)
+                if(mainView.IsLoaded)
                 {
                     postMainViewLoaded();
                 }
@@ -147,9 +149,9 @@ namespace JuliusSweetland.OptiKids
                     loadedHandler = (s, a) =>
                     {
                         postMainViewLoaded();
-                        mainWindow.MainView.Loaded -= loadedHandler; //Ensure this handler only triggers once
+                        mainView.Loaded -= loadedHandler; //Ensure this handler only triggers once
                     };
-                    mainWindow.MainView.Loaded += loadedHandler;
+                    mainView.Loaded += loadedHandler;
                 }
 
                 //Show the main window

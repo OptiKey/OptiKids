@@ -3795,7 +3795,7 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Starting!.
+        ///   Looks up a localized string similar to Here we go....
         /// </summary>
         public static string START_QUIZ_TITLE {
             get {

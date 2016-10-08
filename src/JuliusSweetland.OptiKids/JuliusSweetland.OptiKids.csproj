@@ -324,7 +324,6 @@
     <Content Include="Quizes\SampleQuiz.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Resources\Icons\SVG Source Files\ArrowPointingToRight.svg" />
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
@@ -373,10 +372,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Resources\Icons\KeySymbols.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resources\Themes\Android_Light.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

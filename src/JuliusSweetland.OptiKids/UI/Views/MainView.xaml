@@ -9,7 +9,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
-    <Grid>
+    <Grid Background="Blue">
         <!-- KEYBOARD HOST = KEYBOARD AND SCRATCHPAD -->
         <controls:KeyboardHost Letters="{Binding Letters, Mode=OneWay}"
                                PointToKeyValueMap="{Binding PointToKeyValueMap, Mode=OneWayToSource}">
@@ -193,11 +193,6 @@
         <!-- TOAST NOTIFICATION POPUP -->
         <controls:ToastNotificationPopup Placement="AbsolutePoint" AllowsTransparency="True" IsOpen="False">
             <controls:ToastNotification RenderTransformOrigin="0,1">
-                <!--<controls:ToastNotification.Template>
-                    <ControlTemplate TargetType="{x:Type controls:ToastNotification}">
-                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Yellow"></Grid>        
-                    </ControlTemplate>
-                </controls:ToastNotification.Template>-->
                 <controls:ToastNotification.RenderTransform>
                     <ScaleTransform ScaleY="1" />
                 </controls:ToastNotification.RenderTransform>

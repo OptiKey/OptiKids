@@ -8,7 +8,6 @@
     
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/OptiKids;component/Resources/Themes/Colours/Android.xaml" />
-        <ResourceDictionary Source="/OptiKids;component/Resources/Icons/KeySymbols.xaml" />
         <ResourceDictionary>
             <SolidColorBrush x:Key="WindowBorderBrush" Color="{StaticResource Grey}" />
             
