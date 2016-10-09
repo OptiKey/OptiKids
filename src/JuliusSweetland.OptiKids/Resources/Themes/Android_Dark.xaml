@@ -38,6 +38,8 @@
             <SolidColorBrush x:Key="ToastErrorNotificationBorderBrush" Color="{StaticResource Grey}" />
             <SolidColorBrush x:Key="ToastErrorNotificationBackgroundBrush" Color="{StaticResource DarkRed}" />
 
+            <SolidColorBrush x:Key="MainScreenBackgroundBrush" Color="{StaticResource Black}" />
+
             <valueConverters:LengthDividedBySpan x:Key="LengthDividedBySpan" />
 
             <Style x:Key="KeyTextStyle" TargetType="{x:Type TextBlock}">

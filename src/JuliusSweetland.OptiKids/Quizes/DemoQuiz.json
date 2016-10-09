@@ -4,11 +4,11 @@
   "RandomiseWords": true,
   "RandomiseLetters": true,
   "DisplayWordMasks": true,
-  "HintEveryXIncorrectLetters": 2,
+  "HintEveryXIncorrectLetters": 3,
   "Questions": [
     {
       "Word": "dog",
-      "Letters": "adeg|imot",
+      "Letters": " adeg | imot ",
       "ImagePath": "\\Resources\\Images\\dog.jpg"
     },
     {

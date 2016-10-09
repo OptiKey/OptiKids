@@ -306,7 +306,7 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Correct!|That’s right!|You did it!|Well done!|That is correct!|Nicely done!|Nice!|Good spelling!|Yes!|Amazing!|You’re very good at spelling!|That’s great!|Excellent!|Brilliant!|Absolutely right!|Exactly right!|Nice! Keep going!|Perfect!|You got it!.
+        ///   Looks up a localized string similar to Correct!|That’s right!|You did it!|Well done!|That is correct!|Nicely done!|Nice!|Good spelling!|Yes!|Amazing!|You’re very good at spelling!|That’s great!|Excellent!|Brilliant!|Absolutely right!|Exactly right!|Nice!|Perfect!|You got it!.
         /// </summary>
         public static string CORRECT_SPELLING_ENCOURAGEMENTS {
             get {

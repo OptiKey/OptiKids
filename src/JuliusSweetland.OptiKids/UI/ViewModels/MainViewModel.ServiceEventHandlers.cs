@@ -57,32 +57,35 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
                         {
                             Log.InfoFormat("Firing CorrectKeySelection event with KeyValue '{0}'", value.KeyValue.Value);
                             CorrectKeySelection(this, value.KeyValue.Value);
-                            var newWordProgress = new StringBuilder(wordProgress);
-                            newWordProgress.Remove(wordIndex, 1);
-                            newWordProgress.Insert(wordIndex, value.KeyValue.Value.String);
-                            WordProgress = newWordProgress.ToString();
-                            wordIndex++;
+                        }
 
-                            if (WordProgress == word)
+                        var newWordProgress = new StringBuilder(wordProgress);
+                        newWordProgress.Remove(wordIndex, 1);
+                        newWordProgress.Insert(wordIndex, value.KeyValue.Value.String);
+                        WordProgress = newWordProgress.ToString();
+                        wordIndex++;
+
+                        if (WordProgress == word)
+                        {
+                            //Word complete
+                            CurrentPositionKey = null; //Clear current position key - it is distracting
+                            await Spell(value.KeyValue.Value.String);
+                            if (Settings.Default.PlayEncouragementOnCorrectlySpelledWord)
                             {
-                                //Word complete
-                                await Spell(value.KeyValue.Value.String);
-                                if (Settings.Default.PlayEncouragementOnCorrectlySpelledWord)
-                                {
-                                    var rnd = new Random();
-                                    var encouragement =
-                                        Resources.CORRECT_SPELLING_ENCOURAGEMENTS.Split('|')
-                                            .OrderBy(x => rnd.Next())
-                                            .First();
-                                    await Speak(encouragement, false, 0);
-                                }
-                                await Task.Delay(Settings.Default.MinDelayBeforeProgressingInSeconds*1000);
-                                ProgressQuestion();
+                                var rnd = new Random();
+                                var encouragement =
+                                    Resources.CORRECT_SPELLING_ENCOURAGEMENTS.Split('|')
+                                        .OrderBy(x => rnd.Next())
+                                        .First();
+                                await Speak(encouragement, false, 0);
                             }
-                            else
-                            {
-                                Spell(value.KeyValue.Value.String);
-                            }
+                            await Task.Delay(Settings.Default.MinDelayBeforeProgressingInSeconds * 1000);
+                            ProgressQuestion();
+                        }
+                        else
+                        {
+                            Spell(value.KeyValue.Value.String);
+                            incorrectGuessCount = 0;
                         }
                     }
                     else
@@ -92,6 +95,19 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
                         {
                             Log.InfoFormat("Firing IncorrectKeySelection event with KeyValue '{0}'", value.KeyValue.Value);
                             IncorrectKeySelection(this, value.KeyValue.Value);
+                        }
+
+                        incorrectGuessCount++;
+                        if (quiz.HintEveryXIncorrectLetters > 0 
+                            && incorrectGuessCount % quiz.HintEveryXIncorrectLetters == 0)
+                        {
+                            await Spell(value.KeyValue.Value.String);
+                            CurrentPositionKey = null; //Clear current position key - it is distracting
+                            await Task.Delay(500); //Slight pause before hint
+                            await Speak(word, true);
+                        }
+                        else
+                        {
                             Spell(value.KeyValue.Value.String);
                         }
                     }

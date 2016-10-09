@@ -310,6 +310,7 @@
       <Link>myGazeAPI.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="app.config" />
     <None Include="nbug.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -321,7 +322,7 @@
     <Content Include="Pronunciation\EnglishUK.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Quizes\SampleQuiz.json">
+    <Content Include="Quizes\DemoQuiz.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="app.manifest">

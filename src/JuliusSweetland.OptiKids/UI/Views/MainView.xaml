@@ -9,8 +9,30 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
-    <Grid Background="Blue">
-        <!-- KEYBOARD HOST = KEYBOARD AND SCRATCHPAD -->
+    <UserControl.Resources>
+        <ControlTemplate x:Key="QuizSetupButton" TargetType="{x:Type Button}">
+            <Grid>
+                <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                    <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="true">
+                    <Setter TargetName="Border" Property="Background" Value="PaleGreen" />
+                    <Setter TargetName="Border" Property="BorderBrush" Value="DarkGreen" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource MainScreenBackgroundBrush}">
+
         <controls:KeyboardHost Letters="{Binding Letters, Mode=OneWay}"
                                PointToKeyValueMap="{Binding PointToKeyValueMap, Mode=OneWayToSource}">
             <controls:KeyboardHost.ErrorContent>
@@ -28,34 +50,7 @@
             </controls:KeyboardHost.ErrorContent>
         </controls:KeyboardHost>
 
-        <!-- IMAGE WITH BLACK BACKGROUND -->
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Black">
-            <Grid.Style>
-                <Style TargetType="{x:Type Grid}">
-                    <Setter Property="Visibility" Value="Visible" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding ImagePath}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Hidden" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
-            <Image Stretch="Uniform" Source="{Binding ImagePath}" />
-        </Grid>
-
-        <!-- QUIZ WAITING TO START & FINISHED BACKGROUND -->
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Black">
-            <Grid.Style>
-                <Style TargetType="{x:Type Grid}">
-                    <Setter Property="Visibility" Value="Visible" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding QuizState}" Value="{x:Static enums:QuizStates.Running}">
-                            <Setter Property="Visibility" Value="Hidden" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </Grid.Style>
-        </Grid>
+        <Image Stretch="Uniform" Source="{Binding ImagePath}" />
 
         <!-- QUIZ SETUP -->
         <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
@@ -105,7 +100,7 @@
                 <TextBlock HorizontalAlignment="Stretch" 
                            VerticalAlignment="Center" 
                            TextAlignment="Center"
-                           Text="{Binding Source={x:Static resx:Settings.Default}, Path=QuizFile}"
+                           Text="{Binding QuizFileName, Mode=OneWay}"
                            FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
                            FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
                            FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
@@ -115,28 +110,8 @@
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Click="LookupQuizFile_OnClick">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Border x:Name="Border"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="LightBlue" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="PaleGreen" />
-                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkGreen" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
+                    Click="LookupQuizFile_OnClick"
+                    Template="{StaticResource QuizSetupButton}">
                 <Button.Content>
                     <controls:TextBlockScaler>
                         <TextBlock HorizontalAlignment="Stretch" 
@@ -154,28 +129,8 @@
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Command="{Binding StartQuizCommand}">
-                <Button.Template>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Grid>
-                            <Border x:Name="Border"
-                                    Background="{TemplateBinding Background}"
-                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}">
-                                <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-                            </Border>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="LightBlue" />
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="PaleGreen" />
-                                <Setter TargetName="Border" Property="BorderBrush" Value="DarkGreen" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Button.Template>
+                    Command="{Binding StartQuizCommand}"
+                    Template="{StaticResource QuizSetupButton}">                
                 <Button.Content>
                     <controls:TextBlockScaler Margin="10">
                         <TextBlock HorizontalAlignment="Stretch" 
@@ -190,7 +145,6 @@
             </Button>
         </Grid>
 
-        <!-- TOAST NOTIFICATION POPUP -->
         <controls:ToastNotificationPopup Placement="AbsolutePoint" AllowsTransparency="True" IsOpen="False">
             <controls:ToastNotification RenderTransformOrigin="0,1">
                 <controls:ToastNotification.RenderTransform>

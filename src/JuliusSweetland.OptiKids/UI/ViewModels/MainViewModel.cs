@@ -6,6 +6,7 @@ using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Windows;
 using JuliusSweetland.OptiKids.Enums;
+using JuliusSweetland.OptiKids.Extensions;
 using JuliusSweetland.OptiKids.Models;
 using JuliusSweetland.OptiKids.Properties;
 using JuliusSweetland.OptiKids.Services;
@@ -39,7 +40,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         private int wordIndex = 0;
         private string wordProgress;
         private string letters;
-        private int guessCount = 0;
+        private int incorrectGuessCount = 0;
         private QuizStates quizState = QuizStates.WaitingToStart;
 
         #endregion
@@ -55,6 +56,8 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             this.keyStateService = keyStateService;
             this.errorNotifyingServices = errorNotifyingServices;
             this.pronunciation = pronunciation;
+
+            Settings.Default.OnPropertyChanges(s => s.QuizFile).Subscribe(_ => OnPropertyChanged(() => QuizFileName));
 
             StartQuizCommand = new DelegateCommand(StartQuiz);
         }
@@ -96,6 +99,11 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         {
             get { return quizState; }
             set { SetProperty(ref quizState, value); }
+        }
+
+        public string QuizFileName
+        {
+            get { return Path.GetFileName(Settings.Default.QuizFile); }
         }
 
         public string ImagePath
@@ -224,7 +232,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         {
             questionIndex++;
             wordIndex = 0;
-            guessCount = 0;
+            incorrectGuessCount = 0;
             SetQuestion();
         }
 

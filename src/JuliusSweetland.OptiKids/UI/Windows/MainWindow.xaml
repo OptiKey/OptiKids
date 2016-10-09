@@ -6,5 +6,5 @@
         WindowStyle="None"
         Title="OptiKids"
         Icon="..\..\Resources\Icons\Main.ico">
-    <!--<views:MainView x:Name="MainView" />-->
+    <views:MainView x:Name="MainView" />
 </Window>

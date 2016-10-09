@@ -1610,7 +1610,7 @@ Slovensko
     <value>UH-OH!</value>
   </data>
   <data name="CORRECT_SPELLING_ENCOURAGEMENTS" xml:space="preserve">
-    <value>Correct!|That’s right!|You did it!|Well done!|That is correct!|Nicely done!|Nice!|Good spelling!|Yes!|Amazing!|You’re very good at spelling!|That’s great!|Excellent!|Brilliant!|Absolutely right!|Exactly right!|Nice! Keep going!|Perfect!|You got it!</value>
+    <value>Correct!|That’s right!|You did it!|Well done!|That is correct!|Nicely done!|Nice!|Good spelling!|Yes!|Amazing!|You’re very good at spelling!|That’s great!|Excellent!|Brilliant!|Absolutely right!|Exactly right!|Nice!|Perfect!|You got it!</value>
   </data>
   <data name="INTRO_SCREEN_TITLE" xml:space="preserve">
     <value>Hello there!</value>

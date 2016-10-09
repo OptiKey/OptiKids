@@ -9,7 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using JuliusSweetland.OptiKids.Extensions;
 using JuliusSweetland.OptiKids.Models;
-using JuliusSweetland.OptiKids.Services;
 using JuliusSweetland.OptiKids.UI.Utilities;
 using log4net;
 
@@ -139,8 +138,8 @@ namespace JuliusSweetland.OptiKids.UI.Controls
                         var letter = rowsOfLetters[r][c].ToString();
                         var key = new Key
                         {
-                            Text = letter,
-                            Value = new KeyValue(letter)
+                            Text = !string.IsNullOrWhiteSpace(letter) ? letter : null,
+                            Value = !string.IsNullOrWhiteSpace(letter) ? new KeyValue(letter) : default(KeyValue)
                         };
                         Grid.SetRow(key, r);
                         Grid.SetColumn(key, c);
