@@ -88,6 +88,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CANCEL.
+        /// </summary>
+        public static string CANCEL {
+            get {
+                return ResourceManager.GetString("CANCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to start the quiz. Please check the quiz file and try again....
         /// </summary>
         public static string CANNOT_START_QUIZ_CONTENT {
@@ -1862,6 +1871,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         public static string MANAGEMENT_CONSOLE {
             get {
                 return ResourceManager.GetString("MANAGEMENT_CONSOLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to   Settings  .
+        /// </summary>
+        public static string MANAGEMENT_CONSOLE_BUTTON {
+            get {
+                return ResourceManager.GetString("MANAGEMENT_CONSOLE_BUTTON", resourceCulture);
             }
         }
         

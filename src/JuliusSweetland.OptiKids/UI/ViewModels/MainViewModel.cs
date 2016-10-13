@@ -5,6 +5,7 @@ using System.Linq;
 using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using JuliusSweetland.OptiKids.Enums;
 using JuliusSweetland.OptiKids.Extensions;
 using JuliusSweetland.OptiKids.Models;
@@ -13,6 +14,7 @@ using JuliusSweetland.OptiKids.Services;
 using log4net;
 using Newtonsoft.Json;
 using Prism.Commands;
+using Prism.Interactivity.InteractionRequest;
 using Prism.Mvvm;
 
 namespace JuliusSweetland.OptiKids.UI.ViewModels
@@ -28,11 +30,12 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         private readonly IKeyStateService keyStateService;
         private readonly List<INotifyErrors> errorNotifyingServices;
         private readonly Dictionary<char, string> pronunciation;
+        private readonly InteractionRequest<NotificationWithAudioService> managementWindowRequest;
+        private readonly ICommand managementWindowRequestCommand;
+
         private Quiz quiz;
-        
         private KeyValue? currentPositionKey;
         private Dictionary<Rect, KeyValue> pointToKeyValueMap;
-
         private List<Question> questions;
         private int questionIndex = 0;
         private string imagePath;
@@ -56,6 +59,9 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             this.keyStateService = keyStateService;
             this.errorNotifyingServices = errorNotifyingServices;
             this.pronunciation = pronunciation;
+
+            managementWindowRequest = new InteractionRequest<NotificationWithAudioService>();
+            managementWindowRequestCommand = new DelegateCommand(RequestManagementWindow);
 
             Settings.Default.OnPropertyChanges(s => s.QuizFile).Subscribe(_ => OnPropertyChanged(() => QuizFileName));
 
@@ -125,6 +131,9 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         }
 
         public DelegateCommand StartQuizCommand { get; private set; }
+        public ICommand ManagementWindowRequestCommand { get { return managementWindowRequestCommand; } }
+
+        public InteractionRequest<NotificationWithAudioService> ManagementWindowRequest { get { return managementWindowRequest; } }
 
         #endregion
 
@@ -265,6 +274,14 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             {
                 keyStateService.KeySelectionProgress.Clear();
             }
+        }
+
+        private void RequestManagementWindow()
+        {
+            inputService.RequestSuspend();
+            ManagementWindowRequest.Raise(
+                new NotificationWithAudioService { AudioService = audioService },
+                _ => inputService.RequestResume());
         }
 
         internal void RaiseToastNotification(string title, string content, NotificationTypes notificationType, Action callback)

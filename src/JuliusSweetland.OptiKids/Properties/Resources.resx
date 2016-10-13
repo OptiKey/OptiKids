@@ -1633,4 +1633,10 @@ Slovensko
   <data name="START_QUIZ_TITLE" xml:space="preserve">
     <value>Here we go...</value>
   </data>
+  <data name="CANCEL" xml:space="preserve">
+    <value>CANCEL</value>
+  </data>
+  <data name="MANAGEMENT_CONSOLE_BUTTON" xml:space="preserve">
+    <value>  Settings  </value>
+  </data>
 </root>

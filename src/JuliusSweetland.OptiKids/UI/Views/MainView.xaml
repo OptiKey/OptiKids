@@ -6,6 +6,9 @@
              xmlns:controls="clr-namespace:JuliusSweetland.OptiKids.UI.Controls"
              xmlns:resx="clr-namespace:JuliusSweetland.OptiKids.Properties"
              xmlns:enums="clr-namespace:JuliusSweetland.OptiKids.Enums"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:interactionRequest="http://prismlibrary.com/"
+             xmlns:triggerActions="clr-namespace:JuliusSweetland.OptiKids.UI.TriggerActions"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
@@ -30,6 +33,13 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </UserControl.Resources>
+
+    <i:Interaction.Triggers>
+        <interactionRequest:InteractionRequestTrigger 
+            SourceObject="{Binding Path=ManagementWindowRequest, Mode=OneWay}">
+            <triggerActions:OpenManagementWindowAction />
+        </interactionRequest:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
 
     <Grid Background="{DynamicResource MainScreenBackgroundBrush}">
 
@@ -137,6 +147,25 @@
                                VerticalAlignment="Center" 
                                TextAlignment="Center"
                                Text="{x:Static resx:Resources.START_QUIZ_BUTTON}"
+                               FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
+                               FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
+                               FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
+                    </controls:TextBlockScaler>
+                </Button.Content>
+            </Button>
+            <Button Grid.Row="5" Grid.Column="3" 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding ManagementWindowRequestCommand}"
+                    Template="{StaticResource QuizSetupButton}">
+                <Button.Content>
+                    <controls:TextBlockScaler>
+                        <TextBlock HorizontalAlignment="Stretch" 
+                               VerticalAlignment="Center" 
+                               TextAlignment="Center"
+                               Text="{x:Static resx:Resources.MANAGEMENT_CONSOLE_BUTTON}"
                                FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
                                FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
                                FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />

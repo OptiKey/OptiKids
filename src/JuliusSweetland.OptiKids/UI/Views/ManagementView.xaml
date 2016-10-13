@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="JuliusSweetland.OptiKids.UI.Views.ManagementView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:interactionRequest="http://www.codeplex.com/prism"
+             xmlns:triggerActions="clr-namespace:JuliusSweetland.OptiKids.UI.TriggerActions"
+             xmlns:management="clr-namespace:JuliusSweetland.OptiKids.UI.Views.Management"
+             xmlns:resx="clr-namespace:JuliusSweetland.OptiKids.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <i:Interaction.Triggers>
+        <interactionRequest:InteractionRequestTrigger SourceObject="{Binding ConfirmationRequest, Mode=OneWay}">
+            <triggerActions:ConfirmationWindowAction />
+        </interactionRequest:InteractionRequestTrigger>
+    </i:Interaction.Triggers>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+             <RowDefinition Height="*"/>
+             <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TabControl Grid.IsSharedSizeScope="True">
+            <TabItem Header="{x:Static resx:Resources.VISUALS}">
+                <management:VisualsView DataContext="{Binding VisualsViewModel, Mode=OneWay}" />
+            </TabItem>
+            <TabItem Header="{x:Static resx:Resources.SOUNDS}">
+                <management:SoundsView DataContext="{Binding SoundsViewModel, Mode=OneWay}" />
+            </TabItem>
+            <TabItem Header="{x:Static resx:Resources.POINT_AND_SELECTING}">
+                <management:PointingAndSelectingView DataContext="{Binding PointingAndSelectingViewModel, Mode=OneWay}" />
+            </TabItem>
+            <TabItem Header="{x:Static resx:Resources.OTHER}">
+                <management:OtherView DataContext="{Binding OtherViewModel, Mode=OneWay}" />
+            </TabItem>
+        </TabControl>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Command="{Binding OkCommand}" 
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" 
+                    MinWidth="100" Margin="0,5,5,5" VerticalAlignment="Center">
+                <x:Static Member="resx:Resources.OK"/></Button>
+            <Button Command="{Binding CancelCommand}" 
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" 
+                    MinWidth="100" Margin="0,5,5,5" VerticalAlignment="Center">
+                <x:Static Member="resx:Resources.CANCEL"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

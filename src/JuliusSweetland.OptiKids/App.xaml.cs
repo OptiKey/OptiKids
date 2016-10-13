@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,15 +18,10 @@ using JuliusSweetland.OptiKids.UI.ViewModels;
 using JuliusSweetland.OptiKids.UI.Views;
 using JuliusSweetland.OptiKids.UI.Windows;
 using log4net;
-using log4net.Appender;
 using log4net.Core;
 using log4net.Repository.Hierarchy;
-using NBug.Core.UI;
 using Newtonsoft.Json;
-using Octokit;
-using Octokit.Reactive;
 using Application = System.Windows.Application;
-using FileMode = System.IO.FileMode;
 
 namespace JuliusSweetland.OptiKids
 {
@@ -47,7 +40,7 @@ namespace JuliusSweetland.OptiKids
 
         private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly Action applyTheme;
-        private readonly MainWindow mainWindow = new MainWindow();
+        private MainWindow mainWindow;
 
         #endregion
 
@@ -127,8 +120,9 @@ namespace JuliusSweetland.OptiKids
 
                 //Load pronunciation and quiz from files
                 var pronunciation = LoadPronunciation();
-                
+
                 //Compose UI
+                mainWindow = new MainWindow(audioService, inputService);
                 var mainViewModel = new MainViewModel(audioService, inputService, 
                     keyStateService, errorNotifyingServices, pronunciation);
                 var mainView = new MainView {DataContext = mainViewModel};

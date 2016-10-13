@@ -1,0 +1,13 @@
+﻿<mahapps:MetroWindow x:Class="JuliusSweetland.OptiKids.UI.Windows.ManagementWindow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mahapps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                     xmlns:views="clr-namespace:JuliusSweetland.OptiKids.UI.Views"
+                     xmlns:resx="clr-namespace:JuliusSweetland.OptiKids.Properties"
+                     Title="{x:Static resx:Resources.MANAGEMENT_CONSOLE_TITLE}"
+                     WindowStartupLocation="CenterOwner"
+                     WindowState="Maximized"
+                     MinWidth="300" MinHeight="200"
+                     Icon="..\..\Resources\Icons\Management.ico">
+    <views:ManagementView x:Name="ManagementView" />
+</mahapps:MetroWindow>

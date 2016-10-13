@@ -2,7 +2,7 @@
   "Description": "Sample quiz",
   "SpellingAudioHints": true,
   "RandomiseWords": true,
-  "RandomiseLetters": true,
+  "RandomiseLetters": false,
   "DisplayWordMasks": true,
   "HintEveryXIncorrectLetters": 3,
   "Questions": [
