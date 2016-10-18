@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ using JuliusSweetland.OptiKids.Observables.PointSources;
 using JuliusSweetland.OptiKids.Observables.TriggerSources;
 using JuliusSweetland.OptiKids.Properties;
 using JuliusSweetland.OptiKids.Services;
+using JuliusSweetland.OptiKids.Static;
 using JuliusSweetland.OptiKids.UI.ViewModels;
 using JuliusSweetland.OptiKids.UI.Views;
 using JuliusSweetland.OptiKids.UI.Windows;
@@ -21,6 +23,8 @@ using log4net;
 using log4net.Core;
 using log4net.Repository.Hierarchy;
 using Newtonsoft.Json;
+using Octokit;
+using Octokit.Reactive;
 using Application = System.Windows.Application;
 
 namespace JuliusSweetland.OptiKids
@@ -33,6 +37,8 @@ namespace JuliusSweetland.OptiKids
         #region Constants
 
         private const string GazeTrackerUdpRegex = @"^STREAM_DATA\s(?<instanceTime>\d+)\s(?<x>-?\d+(\.[0-9]+)?)\s(?<y>-?\d+(\.[0-9]+)?)";
+        private const string GitHubRepoName = "optikids";
+        private const string GitHubRepoOwner = "optikey";
 
         #endregion
 
@@ -53,6 +59,7 @@ namespace JuliusSweetland.OptiKids
 
             //Log startup diagnostic info
             Log.Info("STARTING UP.");
+            LogDiagnosticInfo();
 
             //Attach shutdown handler
             Current.Exit += (o, args) =>
@@ -101,7 +108,7 @@ namespace JuliusSweetland.OptiKids
 
         #region On Startup
 
-        private void App_OnStartup(object sender, StartupEventArgs e)
+        private async void App_OnStartup(object sender, StartupEventArgs e)
         {
             try
             {
@@ -150,6 +157,9 @@ namespace JuliusSweetland.OptiKids
 
                 //Show the main window
                 mainWindow.Show();
+
+                await CheckForUpdates(inputService, audioService, mainViewModel);
+
                 inputService.RequestResume(); //Start the input service
             }
             catch (Exception ex)
@@ -220,8 +230,32 @@ namespace JuliusSweetland.OptiKids
 
         #endregion
 
+        #region Log Diagnostic Info
+
+        private static void LogDiagnosticInfo()
+        {
+            Log.InfoFormat("Assembly version: {0}", DiagnosticInfo.AssemblyVersion);
+            var assemblyFileVersion = DiagnosticInfo.AssemblyFileVersion;
+            if (!string.IsNullOrEmpty(assemblyFileVersion))
+            {
+                Log.InfoFormat("Assembly file version: {0}", assemblyFileVersion);
+            }
+            if (DiagnosticInfo.IsApplicationNetworkDeployed)
+            {
+                Log.InfoFormat("ClickOnce deployment version: {0}", DiagnosticInfo.DeploymentVersion);
+            }
+            Log.InfoFormat("Running as admin: {0}", DiagnosticInfo.RunningAsAdministrator);
+            Log.InfoFormat("Process elevated: {0}", DiagnosticInfo.IsProcessElevated);
+            Log.InfoFormat("Process bitness: {0}", DiagnosticInfo.ProcessBitness);
+            Log.InfoFormat("OS version: {0}", DiagnosticInfo.OperatingSystemVersion);
+            Log.InfoFormat("OS service pack: {0}", DiagnosticInfo.OperatingSystemServicePack);
+            Log.InfoFormat("OS bitness: {0}", DiagnosticInfo.OperatingSystemBitness);
+        }
+
+        #endregion
+
         #region Create Service Methods
-        
+
         private static IInputService CreateInputService()
         {
             Log.Info("Creating InputService.");
@@ -313,6 +347,81 @@ namespace JuliusSweetland.OptiKids
         {
             var pronunciationString = File.ReadAllText(Settings.Default.PronunciationFile);
             return JsonConvert.DeserializeObject<Dictionary<char, string>>(pronunciationString);
+        }
+
+        #endregion
+
+        #region  Check For Updates
+
+        private static async Task<bool> CheckForUpdates(IInputService inputService, IAudioService audioService, MainViewModel mainViewModel)
+        {
+            var taskCompletionSource = new TaskCompletionSource<bool>(); //Used to make this method awaitable on the InteractionRequest callback
+
+            try
+            {
+                if (Settings.Default.CheckForUpdates)
+                {
+                    Log.InfoFormat("Checking GitHub for updates (repo owner:'{0}', repo name:'{1}').", GitHubRepoOwner, GitHubRepoName);
+
+                    var github = new GitHubClient(new ProductHeaderValue("OptiKids"));
+                    var releases = await github.Repository.Release.GetAll(GitHubRepoOwner, GitHubRepoName);
+                    var latestRelease = releases.FirstOrDefault(release => !release.Prerelease);
+                    if (latestRelease != null)
+                    {
+                        var currentVersion = new Version(DiagnosticInfo.AssemblyVersion); //Convert from string
+
+                        //Discard revision (4th number) as my GitHub releases are tagged with "vMAJOR.MINOR.PATCH"
+                        currentVersion = new Version(currentVersion.Major, currentVersion.Minor, currentVersion.Build);
+
+                        if (!string.IsNullOrEmpty(latestRelease.TagName))
+                        {
+                            var tagNameWithoutLetters =
+                                new string(latestRelease.TagName.ToCharArray().Where(c => !char.IsLetter(c)).ToArray());
+                            var latestAvailableVersion = new Version(tagNameWithoutLetters);
+                            if (latestAvailableVersion > currentVersion)
+                            {
+                                Log.InfoFormat(
+                                    "An update is available. Current version is {0}. Latest version on GitHub repo is {1}",
+                                    currentVersion, latestAvailableVersion);
+
+                                inputService.RequestSuspend();
+                                audioService.PlaySound(Settings.Default.InfoSoundFile, Settings.Default.InfoSoundVolume);
+                                mainViewModel.RaiseToastNotification(OptiKids.Properties.Resources.UPDATE_AVAILABLE,
+                                    string.Format(OptiKids.Properties.Resources.URL_DOWNLOAD_PROMPT, latestRelease.TagName),
+                                    NotificationTypes.Normal,
+                                    () => taskCompletionSource.SetResult(true));
+                            }
+                            else
+                            {
+                                Log.Info("No update found.");
+                                taskCompletionSource.SetResult(false);
+                            }
+                        }
+                        else
+                        {
+                            Log.Info("Unable to determine if an update is available as the latest release lacks a tag.");
+                            taskCompletionSource.SetResult(false);
+                        }
+                    }
+                    else
+                    {
+                        Log.Info("No releases found.");
+                        taskCompletionSource.SetResult(false);
+                    }
+                }
+                else
+                {
+                    Log.Info("Check for update is disabled - skipping check.");
+                    taskCompletionSource.SetResult(false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.ErrorFormat("Error when checking for updates. Exception message:{0}\nStackTrace:{1}", ex.Message, ex.StackTrace);
+                taskCompletionSource.SetResult(false);
+            }
+            
+            return await taskCompletionSource.Task;
         }
 
         #endregion

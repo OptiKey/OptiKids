@@ -72,7 +72,21 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             get { return speechRate; }
             set { SetProperty(ref speechRate, value); }
         }
-        
+
+        private string infoSoundFile;
+        public string InfoSoundFile
+        {
+            get { return infoSoundFile; }
+            set { SetProperty(ref infoSoundFile, value); }
+        }
+
+        private int infoSoundVolume;
+        public int InfoSoundVolume
+        {
+            get { return infoSoundVolume; }
+            set { SetProperty(ref infoSoundVolume, value); }
+        }
+
         private string errorSoundFile;
         public string ErrorSoundFile
         {
@@ -103,6 +117,8 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             SpeechVoice = Settings.Default.SpeechVoice;
             SpeechVolume = Settings.Default.SpeechVolume;
             SpeechRate = Settings.Default.SpeechRate;
+            InfoSoundFile = Settings.Default.InfoSoundFile;
+            InfoSoundVolume = Settings.Default.InfoSoundVolume;
             ErrorSoundFile = Settings.Default.ErrorSoundFile;
             ErrorSoundVolume = Settings.Default.ErrorSoundVolume;
         }
@@ -112,6 +128,8 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             Settings.Default.SpeechVoice = SpeechVoice;
             Settings.Default.SpeechVolume = SpeechVolume;
             Settings.Default.SpeechRate = SpeechRate;
+            Settings.Default.InfoSoundFile = InfoSoundFile;
+            Settings.Default.InfoSoundVolume = InfoSoundVolume;
             Settings.Default.ErrorSoundFile = ErrorSoundFile;
             Settings.Default.ErrorSoundVolume = ErrorSoundVolume;
         }

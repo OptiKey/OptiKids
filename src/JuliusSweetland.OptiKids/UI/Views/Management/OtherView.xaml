@@ -16,11 +16,18 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static resx:Resources.DEBUGGING_MODE_LABEL}" 
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static resx:Resources.CHECK_FOR_UPDATES_AT_STARTUP_LABEL}" 
                            VerticalAlignment="Center" Margin="5" />
                 <CheckBox Grid.Row="0" Grid.Column="1" 
+                          VerticalAlignment="Center"
+                          IsChecked="{Binding CheckForUpdates, Mode=TwoWay}" />
+                
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static resx:Resources.DEBUGGING_MODE_LABEL}" 
+                           VerticalAlignment="Center" Margin="5" />
+                <CheckBox Grid.Row="1" Grid.Column="1" 
                           VerticalAlignment="Center"
                           IsChecked="{Binding Debug, Mode=TwoWay}" />
             </Grid>

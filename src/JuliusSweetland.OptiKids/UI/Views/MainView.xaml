@@ -153,7 +153,7 @@
                     </controls:TextBlockScaler>
                 </Button.Content>
             </Button>
-            <Button Grid.Row="5" Grid.Column="3" 
+            <Button Grid.Row="5" Grid.Column="0" 
                     HorizontalAlignment="Right"
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
@@ -166,6 +166,25 @@
                                VerticalAlignment="Center" 
                                TextAlignment="Center"
                                Text="{x:Static resx:Resources.MANAGEMENT_CONSOLE_BUTTON}"
+                               FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
+                               FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
+                               FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
+                    </controls:TextBlockScaler>
+                </Button.Content>
+            </Button>
+            <Button Grid.Row="5" Grid.Column="3" 
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Command="{Binding QuitRequestCommand}"
+                    Template="{StaticResource QuizSetupButton}">
+                <Button.Content>
+                    <controls:TextBlockScaler>
+                        <TextBlock HorizontalAlignment="Stretch" 
+                               VerticalAlignment="Center" 
+                               TextAlignment="Center"
+                               Text="{x:Static resx:Resources.QUIT}"
                                FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
                                FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
                                FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />

@@ -102,18 +102,6 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             get { return Enum.GetValues(typeof(Enums.MouseButtons)).Cast<Enums.MouseButtons>().OrderBy(mb => mb.ToString()).ToList(); }
         }
         
-        public List<KeyValuePair<string, TriggerStopSignals>> TriggerStopSignals
-        {
-            get
-            {
-                return new List<KeyValuePair<string, TriggerStopSignals>>
-                {
-                    new KeyValuePair<string, TriggerStopSignals>(Resources.TRIGGER_PRESSED_AGAIN, Enums.TriggerStopSignals.NextHigh),
-                    new KeyValuePair<string, TriggerStopSignals>(Resources.TRIGGER_RELEASED, Enums.TriggerStopSignals.NextLow)
-                };
-            }
-        }
-
         public List<KeyValuePair<string, ProgressIndicatorBehaviours>> ProgressIndicatorBehaviours
         {
             get

@@ -32,6 +32,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         private readonly Dictionary<char, string> pronunciation;
         private readonly InteractionRequest<NotificationWithAudioService> managementWindowRequest;
         private readonly ICommand managementWindowRequestCommand;
+        private readonly ICommand quitRequestCommand;
 
         private Quiz quiz;
         private KeyValue? currentPositionKey;
@@ -62,6 +63,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
 
             managementWindowRequest = new InteractionRequest<NotificationWithAudioService>();
             managementWindowRequestCommand = new DelegateCommand(RequestManagementWindow);
+            quitRequestCommand = new DelegateCommand(Quit);
 
             Settings.Default.OnPropertyChanges(s => s.QuizFile).Subscribe(_ => OnPropertyChanged(() => QuizFileName));
 
@@ -132,7 +134,8 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
 
         public DelegateCommand StartQuizCommand { get; private set; }
         public ICommand ManagementWindowRequestCommand { get { return managementWindowRequestCommand; } }
-
+        public ICommand QuitRequestCommand { get { return quitRequestCommand; } }
+        
         public InteractionRequest<NotificationWithAudioService> ManagementWindowRequest { get { return managementWindowRequest; } }
 
         #endregion
@@ -282,6 +285,11 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
             ManagementWindowRequest.Raise(
                 new NotificationWithAudioService { AudioService = audioService },
                 _ => inputService.RequestResume());
+        }
+
+        private void Quit()
+        {
+            Application.Current.Shutdown();
         }
 
         internal void RaiseToastNotification(string title, string content, NotificationTypes notificationType, Action callback)

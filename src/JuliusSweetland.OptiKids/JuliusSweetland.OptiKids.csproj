@@ -215,6 +215,21 @@
     <Compile Include="Models\PointAndKeyValue.cs" />
     <Compile Include="Models\Quiz.cs" />
     <Compile Include="Models\Question.cs" />
+    <Compile Include="Native\Common\Enums\AppBarEdge.cs" />
+    <Compile Include="Native\Common\Enums\AppBarMessages.cs" />
+    <Compile Include="Native\Common\Enums\AppBarNotify.cs" />
+    <Compile Include="Native\Common\Enums\DeviceCaps.cs" />
+    <Compile Include="Native\Common\Enums\GWL.cs" />
+    <Compile Include="Native\Common\Enums\SetWindowPosFlags.cs" />
+    <Compile Include="Native\Common\Enums\SpecialWindowHandles.cs" />
+    <Compile Include="Native\Common\Enums\TOKEN_ELEVATION_TYPE.cs" />
+    <Compile Include="Native\Common\Enums\TOKEN_INFORMATION_CLASS.cs" />
+    <Compile Include="Native\Common\Enums\WindowShowStyle.cs" />
+    <Compile Include="Native\Common\PInvoke.cs" />
+    <Compile Include="Native\Common\Static\WindowStyles.cs" />
+    <Compile Include="Native\Common\Structs\APPBARDATA.cs" />
+    <Compile Include="Native\Common\Structs\OSVERSIONINFO.cs" />
+    <Compile Include="Native\Common\Structs\RECT.cs" />
     <Compile Include="Native\MyGaze\PInvoke.cs" />
     <Compile Include="Native\MyGaze\Structs\EventStruct.cs" />
     <Compile Include="Native\MyGaze\Structs\EyeDataStruct.cs" />
@@ -251,6 +266,7 @@
     <Compile Include="Services\TobiiEyeXPointService.cs" />
     <Compile Include="Services\TheEyeTribePointService.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Static\DiagnosticInfo.cs" />
     <Compile Include="UI\Behaviours\KeyBehaviours.cs" />
     <Compile Include="UI\Controls\PointVisualiser.cs" />
     <Compile Include="UI\Controls\ProgressIndicator.cs" />
@@ -343,7 +359,6 @@
       <Link>myGazeAPI.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="app.config" />
     <None Include="nbug.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
