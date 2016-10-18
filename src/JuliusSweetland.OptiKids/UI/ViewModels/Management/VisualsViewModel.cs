@@ -154,13 +154,6 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             set { SetProperty(ref fontWeight, value); }
         }
 
-        private int scratchpadNumberOfLines;
-        public int ScratchpadNumberOfLines
-        {
-            get { return scratchpadNumberOfLines; }
-            set { SetProperty(ref scratchpadNumberOfLines, value); }
-        }
-
         private int toastNotificationHorizontalFillPercentage;
         public int ToastNotificationHorizontalFillPercentage
         {
@@ -182,62 +175,6 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             set { SetProperty(ref toastNotificationSecondsPerCharacter, value); }
         }
 
-        private int cursorWidthInPixels;
-        public int CursorWidthInPixels
-        {
-            get { return cursorWidthInPixels; }
-            set { SetProperty(ref cursorWidthInPixels, value); }
-        }
-
-        private int cursorHeightInPixels;
-        public int CursorHeightInPixels
-        {
-            get { return cursorHeightInPixels; }
-            set { SetProperty(ref cursorHeightInPixels, value); }
-        }
-
-        private double magnifySourcePercentageOfScreen;
-        public double MagnifySourcePercentageOfScreen
-        {
-            get { return magnifySourcePercentageOfScreen; }
-            set { SetProperty(ref magnifySourcePercentageOfScreen, value); }
-        }
-
-        private double magnifyDestinationPercentageOfScreen;
-        public double MagnifyDestinationPercentageOfScreen
-        {
-            get { return magnifyDestinationPercentageOfScreen; }
-            set { SetProperty(ref magnifyDestinationPercentageOfScreen, value); }
-        }
-
-        private bool conversationOnlyMode;
-        public bool ConversationOnlyMode
-        {
-            get { return conversationOnlyMode; }
-            set { SetProperty(ref conversationOnlyMode, value); }
-        }
-
-        private double mainWindowFullDockThicknessAsPercentageOfScreen;
-        public double MainWindowFullDockThicknessAsPercentageOfScreen
-        {
-            get { return mainWindowFullDockThicknessAsPercentageOfScreen; }
-            set { SetProperty(ref mainWindowFullDockThicknessAsPercentageOfScreen, value); }
-        }
-
-        private double mainWindowCollapsedDockThicknessAsPercentageOfFullDockThickness;
-        public double MainWindowCollapsedDockThicknessAsPercentageOfFullDockThickness
-        {
-            get { return mainWindowCollapsedDockThicknessAsPercentageOfFullDockThickness; }
-            set { SetProperty(ref mainWindowCollapsedDockThicknessAsPercentageOfFullDockThickness, value); }
-        }
-
-        private Thickness conversationBorderThickness;
-        public Thickness ConversationBorderThickness
-        {
-            get { return conversationBorderThickness; }
-            set { SetProperty(ref conversationBorderThickness, value); }
-        }
-
         public bool ChangesRequireRestart
         {
             get { return false; }
@@ -253,7 +190,6 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             FontFamily = Settings.Default.FontFamily;
             FontStretch = (FontStretches)Enum.Parse(typeof(FontStretches), Settings.Default.FontStretch);
             FontWeight = (FontWeights)Enum.Parse(typeof(FontWeights), Settings.Default.FontWeight);
-            ScratchpadNumberOfLines = Settings.Default.ScratchpadNumberOfLines;
             ToastNotificationVerticalFillPercentage = Settings.Default.ToastNotificationVerticalFillPercentage;
             ToastNotificationHorizontalFillPercentage = Settings.Default.ToastNotificationHorizontalFillPercentage;
             ToastNotificationSecondsPerCharacter = Settings.Default.ToastNotificationSecondsPerCharacter;
@@ -265,7 +201,6 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             Settings.Default.FontFamily = FontFamily;
             Settings.Default.FontStretch = FontStretch.ToString();
             Settings.Default.FontWeight = FontWeight.ToString();
-            Settings.Default.ScratchpadNumberOfLines = ScratchpadNumberOfLines;
             Settings.Default.ToastNotificationVerticalFillPercentage = ToastNotificationVerticalFillPercentage;
             Settings.Default.ToastNotificationHorizontalFillPercentage = ToastNotificationHorizontalFillPercentage;
             Settings.Default.ToastNotificationSecondsPerCharacter = ToastNotificationSecondsPerCharacter;

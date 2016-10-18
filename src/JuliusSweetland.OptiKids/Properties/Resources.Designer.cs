@@ -2802,9 +2802,9 @@ namespace JuliusSweetland.OptiKids.Properties {
         /// <summary>
         ///   Looks up a localized string similar to OptiKids : Type · Click · Speak.
         /// </summary>
-        public static string OPTIKEY_DESCRIPTION {
+        public static string OPTIKIDS_DESCRIPTION {
             get {
-                return ResourceManager.GetString("OPTIKEY_DESCRIPTION", resourceCulture);
+                return ResourceManager.GetString("OPTIKIDS_DESCRIPTION", resourceCulture);
             }
         }
         

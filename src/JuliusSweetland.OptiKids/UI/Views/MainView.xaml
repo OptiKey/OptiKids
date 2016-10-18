@@ -11,8 +11,8 @@
              xmlns:triggerActions="clr-namespace:JuliusSweetland.OptiKids.UI.TriggerActions"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
     <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <ControlTemplate x:Key="QuizSetupButton" TargetType="{x:Type Button}">
             <Grid>
                 <Border x:Name="Border"

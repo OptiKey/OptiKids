@@ -252,6 +252,7 @@
     <Compile Include="Services\TheEyeTribePointService.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="UI\Behaviours\KeyBehaviours.cs" />
+    <Compile Include="UI\Controls\PointVisualiser.cs" />
     <Compile Include="UI\Controls\ProgressIndicator.cs" />
     <Compile Include="UI\Controls\Scratchpad.cs" />
     <Compile Include="UI\Controls\Key.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="UI\Controls\ToastNotificationPopup.cs" />
     <Compile Include="UI\TriggerActions\ConfirmationWindowAction.cs" />
     <Compile Include="UI\TriggerActions\OpenManagementWindowAction.cs" />
+    <Compile Include="UI\Utilities\DrawingUtils.cs" />
     <Compile Include="UI\ValueConverters\ConvertToStarGridLength.cs" />
     <Compile Include="UI\ValueConverters\FontSizeToFitLines.cs" />
     <Compile Include="UI\ValueConverters\LengthDividedBySpan.cs" />
@@ -341,6 +343,7 @@
       <Link>myGazeAPI.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="app.config" />
     <None Include="nbug.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>

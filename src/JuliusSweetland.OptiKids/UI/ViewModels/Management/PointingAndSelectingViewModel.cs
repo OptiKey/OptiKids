@@ -22,22 +22,9 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
 
         public PointingAndSelectingViewModel()
         {
-           //Set up property defaulting logic
-            this.OnPropertyChanges(vm => vm.KeySelectionTriggerSource).Subscribe(ts => 
-            {
-                switch(ts) 
-                {
-                    case Enums.TriggerSources.Fixations:
-                        MultiKeySelectionTriggerStopSignal = Enums.TriggerStopSignals.NextHigh;
-                    break;
+            Load();
 
-                    case Enums.TriggerSources.KeyboardKeyDownsUps:
-                    case Enums.TriggerSources.MouseButtonDownUps:
-                        MultiKeySelectionTriggerStopSignal = Enums.TriggerStopSignals.NextLow;
-                    break;
-                }
-            });
-
+            //Set up property defaulting logic
             this.OnPropertyChanges(vm => vm.ProgressIndicatorBehaviour).Subscribe(pib =>
             {
                 if (pib == Enums.ProgressIndicatorBehaviours.Grow &&
@@ -203,18 +190,11 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             set { SetProperty(ref keySelectionTriggerFixationResumeRequiresLockOn, value); }
         }
 
-        private double keySelectionTriggerFixationDefaultCompleteTimeInMs;
-        public double KeySelectionTriggerFixationDefaultCompleteTimeInMs
+        private double keySelectionTriggerFixationCompleteTimeInMs;
+        public double KeySelectionTriggerFixationCompleteTimeInMs
         {
-            get { return keySelectionTriggerFixationDefaultCompleteTimeInMs; }
-            set { SetProperty(ref keySelectionTriggerFixationDefaultCompleteTimeInMs, value); }
-        }
-
-        private bool keySelectionTriggerFixationCompleteTimesByIndividualKey;
-        public bool KeySelectionTriggerFixationCompleteTimesByIndividualKey
-        {
-            get { return keySelectionTriggerFixationCompleteTimesByIndividualKey; }
-            set { SetProperty(ref keySelectionTriggerFixationCompleteTimesByIndividualKey, value); }
+            get { return keySelectionTriggerFixationCompleteTimeInMs; }
+            set { SetProperty(ref keySelectionTriggerFixationCompleteTimeInMs, value); }
         }
         
         private double keySelectionTriggerIncompleteFixationTtlInMs;
@@ -222,55 +202,6 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
         {
             get { return keySelectionTriggerIncompleteFixationTtlInMs; }
             set { SetProperty(ref keySelectionTriggerIncompleteFixationTtlInMs, value); }
-        }
-
-        private TriggerSources pointSelectionTriggerSource;
-        public TriggerSources PointSelectionTriggerSource
-        {
-            get { return pointSelectionTriggerSource; }
-            set { SetProperty(ref pointSelectionTriggerSource, value); }
-        }
-
-        private Keys pointSelectionTriggerKeyboardKeyDownUpKey;
-        public Keys PointSelectionTriggerKeyboardKeyDownUpKey
-        {
-            get { return pointSelectionTriggerKeyboardKeyDownUpKey; }
-            set { SetProperty(ref pointSelectionTriggerKeyboardKeyDownUpKey, value); }
-        }
-
-        private MouseButtons pointSelectionTriggerMouseDownUpButton;
-        public MouseButtons PointSelectionTriggerMouseDownUpButton
-        {
-            get { return pointSelectionTriggerMouseDownUpButton; }
-            set { SetProperty(ref pointSelectionTriggerMouseDownUpButton, value); }
-        }
-
-        private double pointSelectionTriggerFixationLockOnTimeInMs;
-        public double PointSelectionTriggerFixationLockOnTimeInMs
-        {
-            get { return pointSelectionTriggerFixationLockOnTimeInMs; }
-            set { SetProperty(ref pointSelectionTriggerFixationLockOnTimeInMs, value); }
-        }
-
-        private double pointSelectionTriggerFixationCompleteTimeInMs;
-        public double PointSelectionTriggerFixationCompleteTimeInMs
-        {
-            get { return pointSelectionTriggerFixationCompleteTimeInMs; }
-            set { SetProperty(ref pointSelectionTriggerFixationCompleteTimeInMs, value); }
-        }
-
-        private double pointSelectionTriggerLockOnRadius;
-        public double PointSelectionTriggerLockOnRadiusInPixels
-        {
-            get { return pointSelectionTriggerLockOnRadius; }
-            set { SetProperty(ref pointSelectionTriggerLockOnRadius, value); }
-        }
-
-        private double pointSelectionTriggerFixationRadius;
-        public double PointSelectionTriggerFixationRadiusInPixels
-        {
-            get { return pointSelectionTriggerFixationRadius; }
-            set { SetProperty(ref pointSelectionTriggerFixationRadius, value); }
         }
 
         private ProgressIndicatorBehaviours progressIndicatorBehaviour;
@@ -294,39 +225,10 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             set { SetProperty(ref progressIndicatorResizeEndProportion, value); }
         }
 
-        private TriggerStopSignals multiKeySelectionTriggerStopSignal;
-        public TriggerStopSignals MultiKeySelectionTriggerStopSignal
-        {
-            get { return multiKeySelectionTriggerStopSignal; }
-            set { SetProperty(ref multiKeySelectionTriggerStopSignal, value); }
-        }
-
-        private double multiKeySelectionFixationMinDwellTimeInMs;
-        public double MultiKeySelectionFixationMinDwellTimeInMs
-        {
-            get { return multiKeySelectionFixationMinDwellTimeInMs; }
-            set { SetProperty(ref multiKeySelectionFixationMinDwellTimeInMs, value); }
-        }
-        
-        private double multiKeySelectionMaxDurationInMs;
-        public double MultiKeySelectionMaxDurationInMs
-        {
-            get { return multiKeySelectionMaxDurationInMs; }
-            set { SetProperty(ref multiKeySelectionMaxDurationInMs, value); }
-        }
-
         public bool ChangesRequireRestart
         {
             get
             {
-                //var flattenedKeySelectionTriggerFixationCompleteTimesByKeyValuesStoredSetting =
-                //    FromSetting(Settings.Default.KeySelectionTriggerFixationCompleteTimesByKeyValues)
-                //        .SelectMany(g => g.KeyValueAndTimeSpans);
-
-                //var flattenedKeySelectionTriggerFixationCompleteTimesByKeyValuesLocalValue =
-                //    KeySelectionTriggerFixationCompleteTimeInMsByKeyValueGroups
-                //        .SelectMany(g => g.KeyValueAndTimeSpans);
-
                 return Settings.Default.PointsSource != PointsSource
                     || (Settings.Default.TobiiEyeXProcessingLevel != TobiiEyeXProcessingLevel && PointsSource == Enums.PointsSources.TobiiEyeX)
                     || (Settings.Default.PointsMousePositionSampleInterval != TimeSpan.FromMilliseconds(PointsMousePositionSampleIntervalInMs) && PointsSource == Enums.PointsSources.MousePosition)
@@ -336,9 +238,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
                     || (Settings.Default.KeySelectionTriggerMouseDownUpButton != KeySelectionTriggerMouseDownUpButton && KeySelectionTriggerSource == Enums.TriggerSources.MouseButtonDownUps)
                     || (Settings.Default.KeySelectionTriggerFixationLockOnTime != TimeSpan.FromMilliseconds(KeySelectionTriggerFixationLockOnTimeInMs) && KeySelectionTriggerSource == Enums.TriggerSources.Fixations)
                     || (Settings.Default.KeySelectionTriggerFixationResumeRequiresLockOn != KeySelectionTriggerFixationResumeRequiresLockOn && KeySelectionTriggerSource == Enums.TriggerSources.Fixations)
-                    //|| (Settings.Default.KeySelectionTriggerFixationDefaultCompleteTime != TimeSpan.FromMilliseconds(KeySelectionTriggerFixationDefaultCompleteTimeInMs) && KeySelectionTriggerSource == Enums.TriggerSources.Fixations)
-                    //|| Settings.Default.KeySelectionTriggerFixationCompleteTimesByIndividualKey != KeySelectionTriggerFixationCompleteTimesByIndividualKey
-                    //|| (flattenedKeySelectionTriggerFixationCompleteTimesByKeyValuesStoredSetting.SequenceEqual(flattenedKeySelectionTriggerFixationCompleteTimesByKeyValuesLocalValue) == false)
+                    || (Settings.Default.KeySelectionTriggerFixationCompleteTime != TimeSpan.FromMilliseconds(KeySelectionTriggerFixationCompleteTimeInMs) && KeySelectionTriggerSource == Enums.TriggerSources.Fixations)
                     || (Settings.Default.KeySelectionTriggerIncompleteFixationTtl != TimeSpan.FromMilliseconds(KeySelectionTriggerIncompleteFixationTtlInMs) && KeySelectionTriggerSource == Enums.TriggerSources.Fixations);
             }
         }
@@ -346,6 +246,24 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
         #endregion
 
         #region Methods
+
+        private void Load()
+        {
+            PointsSource = Settings.Default.PointsSource;
+            TobiiEyeXProcessingLevel = Settings.Default.TobiiEyeXProcessingLevel;
+            PointsMousePositionSampleIntervalInMs = Settings.Default.PointsMousePositionSampleInterval.TotalMilliseconds;
+            PointTtlInMs = Settings.Default.PointTtl.TotalMilliseconds;
+            KeySelectionTriggerSource = Settings.Default.KeySelectionTriggerSource;
+            KeySelectionTriggerKeyboardKeyDownUpKey = Settings.Default.KeySelectionTriggerKeyboardKeyDownUpKey;
+            KeySelectionTriggerMouseDownUpButton = Settings.Default.KeySelectionTriggerMouseDownUpButton;
+            KeySelectionTriggerFixationLockOnTimeInMs = Settings.Default.KeySelectionTriggerFixationLockOnTime.TotalMilliseconds;
+            KeySelectionTriggerFixationResumeRequiresLockOn = Settings.Default.KeySelectionTriggerFixationResumeRequiresLockOn;
+            KeySelectionTriggerFixationCompleteTimeInMs = Settings.Default.KeySelectionTriggerFixationCompleteTime.TotalMilliseconds;
+            KeySelectionTriggerIncompleteFixationTtlInMs = Settings.Default.KeySelectionTriggerIncompleteFixationTtl.TotalMilliseconds;
+            ProgressIndicatorBehaviour = Settings.Default.ProgressIndicatorBehaviour;
+            ProgressIndicatorResizeStartProportion = Settings.Default.ProgressIndicatorResizeStartProportion;
+            ProgressIndicatorResizeEndProportion = Settings.Default.ProgressIndicatorResizeEndProportion;
+        }
 
         public void ApplyChanges()
         {
@@ -358,6 +276,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             Settings.Default.KeySelectionTriggerMouseDownUpButton = KeySelectionTriggerMouseDownUpButton;
             Settings.Default.KeySelectionTriggerFixationLockOnTime = TimeSpan.FromMilliseconds(KeySelectionTriggerFixationLockOnTimeInMs);
             Settings.Default.KeySelectionTriggerFixationResumeRequiresLockOn = KeySelectionTriggerFixationResumeRequiresLockOn;
+            Settings.Default.KeySelectionTriggerFixationCompleteTime = TimeSpan.FromMilliseconds(KeySelectionTriggerFixationCompleteTimeInMs);
             Settings.Default.ProgressIndicatorBehaviour = ProgressIndicatorBehaviour;
             Settings.Default.ProgressIndicatorResizeStartProportion = ProgressIndicatorResizeStartProportion;
             Settings.Default.ProgressIndicatorResizeEndProportion = ProgressIndicatorResizeEndProportion;

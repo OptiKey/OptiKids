@@ -23,48 +23,6 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
         
         #region Properties
 
-        private bool showSplashScreen;
-        public bool ShowSplashScreen
-        {
-            get { return showSplashScreen; }
-            set { SetProperty(ref showSplashScreen, value); }
-        }
-
-        private bool checkForUpdates;
-        public bool CheckForUpdates
-        {
-            get { return checkForUpdates; }
-            set { SetProperty(ref checkForUpdates, value); }
-        }
-
-        private bool publishVirtualKeyCodesForCharacters;
-        public bool PublishVirtualKeyCodesForCharacters
-        {
-            get { return publishVirtualKeyCodesForCharacters; }
-            set { SetProperty(ref publishVirtualKeyCodesForCharacters, value); }
-        }
-
-        private bool suppressModifierKeysForAllMouseActions;
-        public bool SuppressModifierKeysForAllMouseActions
-        {
-            get { return suppressModifierKeysForAllMouseActions; }
-            set { SetProperty(ref suppressModifierKeysForAllMouseActions, value); }
-        }
-
-        private bool suppressModifierKeysWhenInMouseKeyboard;
-        public bool SuppressModifierKeysWhenInMouseKeyboard
-        {
-            get { return suppressModifierKeysWhenInMouseKeyboard; }
-            set { SetProperty(ref suppressModifierKeysWhenInMouseKeyboard, value); }
-        }
-
-        private bool magnifySuppressedForScrollingActions;
-        public bool MagnifySuppressedForScrollingActions
-        {
-            get { return magnifySuppressedForScrollingActions; }
-            set { SetProperty(ref magnifySuppressedForScrollingActions, value); }
-        }
-
         private bool debug;
         public bool Debug
         {
