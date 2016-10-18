@@ -153,7 +153,7 @@
                     </controls:TextBlockScaler>
                 </Button.Content>
             </Button>
-            <Button Grid.Row="5" Grid.Column="0" 
+            <Button Grid.Row="4" Grid.Column="0" Margin="20"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
@@ -172,7 +172,7 @@
                     </controls:TextBlockScaler>
                 </Button.Content>
             </Button>
-            <Button Grid.Row="5" Grid.Column="3" 
+            <Button Grid.Row="4" Grid.Column="3" Margin="20"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
