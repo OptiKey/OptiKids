@@ -105,10 +105,6 @@
       <HintPath>..\..\packages\Octokit.0.22.0\lib\net45\Octokit.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Octokit.Reactive, Version=0.22.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Octokit.Reactive.0.22.0\lib\net45\Octokit.Reactive.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Prism, Version=6.2.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Prism.Core.6.2.0\lib\net45\Prism.dll</HintPath>
       <Private>True</Private>
@@ -359,6 +355,7 @@
       <Link>myGazeAPI.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="app.config" />
     <None Include="nbug.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
