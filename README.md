@@ -5,6 +5,8 @@ Based on OptiKey, OptiKids is a spelling quiz that can be played using a mouse, 
 
 When you run OptiKids you will be asked for a Quiz File, which is a .json file describing the quiz and words to spell. If you copy the DemoQuiz.json file, you can rename and customise it to create your own quizes. You then need to download and specify accompanying image files for each Question (word), although you can leave the *"ImagePath"* out (or leave it blank) if you don't want to display an image for a word.
 
+**N.B. The file path you specify in *"ImagePath"* should be a full path, rather than the shortened path shown in the DemoQuiz.json. All backslashes "\" should be doubled up "\\" - this is a JSON file requirement.**
+
 The *"Letters"* define the available letters from which you will spell the word and will be displayed in order (unless "RandomiseLetters" is set to true). Spaces are accepted in the *"Letters"* and indicate a disabled key - this allows you to space the letters if this is desired (please note that spaces should NOT be included if *"RandomiseLetters"* : true, as this will result in a weird looking onscreen keyboard with random spaces!).
 
 *"SpellingAudioHints"*, if set to true, spells the word out loud for the player before they attempt to type the word. Additionally, if *"HintEveryXIncorrectLetters"* is a positive number, the player will receive an audio hint after they select X (e.g. 3) incorrect letters in a row, as this indicates that they are having trouble spelling the word.
