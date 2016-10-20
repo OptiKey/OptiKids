@@ -23,6 +23,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
         {
             this.audioService = audioService;
 
+            InfoSoundPlayCommand = new DelegateCommand(() => audioService.PlaySound(InfoSoundFile, InfoSoundVolume));
             ErrorSoundPlayCommand = new DelegateCommand(() => audioService.PlaySound(ErrorSoundFile, ErrorSoundVolume));
             
             Load();
@@ -73,6 +74,34 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             set { SetProperty(ref speechRate, value); }
         }
 
+        private int wordSpeechRate;
+        public int WordSpeechRate
+        {
+            get { return wordSpeechRate; }
+            set { SetProperty(ref wordSpeechRate, value); }
+        }
+
+        private int spellingSpeechRate;
+        public int SpellingSpeechRate
+        {
+            get { return spellingSpeechRate; }
+            set { SetProperty(ref spellingSpeechRate, value); }
+        }
+
+        private string pronunciationFile;
+        public string PronunciationFile
+        {
+            get { return pronunciationFile; }
+            set { SetProperty(ref pronunciationFile, value); }
+        }
+
+        private bool playEncouragementOnCorrectlySpelledWord;
+        public bool PlayEncouragementOnCorrectlySpelledWord
+        {
+            get { return playEncouragementOnCorrectlySpelledWord; }
+            set { SetProperty(ref playEncouragementOnCorrectlySpelledWord, value); }
+        }
+
         private string infoSoundFile;
         public string InfoSoundFile
         {
@@ -105,7 +134,8 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
         {
             get { return false; }
         }
-
+        
+        public DelegateCommand InfoSoundPlayCommand { get; private set; }
         public DelegateCommand ErrorSoundPlayCommand { get; private set; }
         
         #endregion
@@ -117,6 +147,10 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             SpeechVoice = Settings.Default.SpeechVoice;
             SpeechVolume = Settings.Default.SpeechVolume;
             SpeechRate = Settings.Default.SpeechRate;
+            WordSpeechRate = Settings.Default.WordSpeechRate;
+            SpellingSpeechRate = Settings.Default.SpellingSpeechRate;
+            PronunciationFile = Settings.Default.PronunciationFile;
+            PlayEncouragementOnCorrectlySpelledWord = Settings.Default.PlayEncouragementOnCorrectlySpelledWord;
             InfoSoundFile = Settings.Default.InfoSoundFile;
             InfoSoundVolume = Settings.Default.InfoSoundVolume;
             ErrorSoundFile = Settings.Default.ErrorSoundFile;
@@ -128,6 +162,10 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             Settings.Default.SpeechVoice = SpeechVoice;
             Settings.Default.SpeechVolume = SpeechVolume;
             Settings.Default.SpeechRate = SpeechRate;
+            Settings.Default.WordSpeechRate = WordSpeechRate;
+            Settings.Default.SpellingSpeechRate = SpellingSpeechRate;
+            Settings.Default.PronunciationFile = PronunciationFile;
+            Settings.Default.PlayEncouragementOnCorrectlySpelledWord = PlayEncouragementOnCorrectlySpelledWord;
             Settings.Default.InfoSoundFile = InfoSoundFile;
             Settings.Default.InfoSoundVolume = InfoSoundVolume;
             Settings.Default.ErrorSoundFile = ErrorSoundFile;

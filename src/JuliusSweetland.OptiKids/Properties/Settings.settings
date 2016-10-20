@@ -107,9 +107,6 @@
     <Setting Name="MinDelayBeforeProgressingInSeconds" Roaming="true" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">3</Value>
     </Setting>
-    <Setting Name="ScratchpadNumberOfLines" Roaming="true" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">1</Value>
-    </Setting>
     <Setting Name="ErrorSoundFile" Roaming="true" Type="System.String" Scope="User">
       <Value Profile="(Default)">Resources\Sounds\Tone2.wav</Value>
     </Setting>

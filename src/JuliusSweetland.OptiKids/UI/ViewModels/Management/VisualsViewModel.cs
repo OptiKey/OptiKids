@@ -175,6 +175,20 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             set { SetProperty(ref toastNotificationSecondsPerCharacter, value); }
         }
 
+        private int minImageDisplayTimeInSeconds;
+        public int MinImageDisplayTimeInSeconds
+        {
+            get { return minImageDisplayTimeInSeconds; }
+            set { SetProperty(ref minImageDisplayTimeInSeconds, value); }
+        }
+
+        private int minDelayBeforeProgressingInSeconds;
+        public int MinDelayBeforeProgressingInSeconds
+        {
+            get { return minDelayBeforeProgressingInSeconds; }
+            set { SetProperty(ref minDelayBeforeProgressingInSeconds, value); }
+        }
+
         public bool ChangesRequireRestart
         {
             get { return false; }
@@ -193,6 +207,8 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             ToastNotificationVerticalFillPercentage = Settings.Default.ToastNotificationVerticalFillPercentage;
             ToastNotificationHorizontalFillPercentage = Settings.Default.ToastNotificationHorizontalFillPercentage;
             ToastNotificationSecondsPerCharacter = Settings.Default.ToastNotificationSecondsPerCharacter;
+            MinImageDisplayTimeInSeconds = Settings.Default.MinImageDisplayTimeInSeconds;
+            MinDelayBeforeProgressingInSeconds = Settings.Default.MinDelayBeforeProgressingInSeconds;
         }
 
         public void ApplyChanges()
@@ -204,6 +220,8 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             Settings.Default.ToastNotificationVerticalFillPercentage = ToastNotificationVerticalFillPercentage;
             Settings.Default.ToastNotificationHorizontalFillPercentage = ToastNotificationHorizontalFillPercentage;
             Settings.Default.ToastNotificationSecondsPerCharacter = ToastNotificationSecondsPerCharacter;
+            Settings.Default.MinImageDisplayTimeInSeconds = MinImageDisplayTimeInSeconds;
+            Settings.Default.MinDelayBeforeProgressingInSeconds = MinDelayBeforeProgressingInSeconds;
         }
 
         #endregion
