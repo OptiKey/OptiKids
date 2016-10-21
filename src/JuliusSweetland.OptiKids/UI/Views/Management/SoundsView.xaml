@@ -108,7 +108,7 @@
                               DisplayMemberPath="Key"
                               SelectedValuePath="Value"
                               SelectedValue="{Binding InfoSoundFile, Mode=TwoWay}" />
-                        <controls:NumericUpDown Grid.Column="1" Width="75"
+                        <controls:NumericUpDown Grid.Column="1" Width="85"
                                                 TextAlignment="Right"
                                                 Minimum="0" Maximum="100" Interval="1"
                                                 Value="{Binding InfoSoundVolume, Mode=TwoWay}" />
