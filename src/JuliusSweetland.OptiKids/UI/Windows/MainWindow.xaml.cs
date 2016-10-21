@@ -16,6 +16,7 @@ namespace JuliusSweetland.OptiKids.UI.Windows
         private readonly IInputService inputService;
         private readonly InteractionRequest<NotificationWithAudioService> managementWindowRequest;
         private readonly ICommand managementWindowRequestCommand;
+        private readonly ICommand quitCommand;
 
         public MainWindow(IAudioService audioService,
             IInputService inputService)
@@ -27,6 +28,7 @@ namespace JuliusSweetland.OptiKids.UI.Windows
 
             managementWindowRequest = new InteractionRequest<NotificationWithAudioService>();
             managementWindowRequestCommand = new DelegateCommand(RequestManagementWindow);
+            quitCommand = new DelegateCommand(Quit);
 
             //Setup key binding (Alt-M and Shift-Alt-M) to open settings
             InputBindings.Add(new KeyBinding
@@ -45,6 +47,7 @@ namespace JuliusSweetland.OptiKids.UI.Windows
 
         public InteractionRequest<NotificationWithAudioService> ManagementWindowRequest { get { return managementWindowRequest; } }
         public ICommand ManagementWindowRequestCommand { get { return managementWindowRequestCommand; } }
+        public ICommand QuitCommand { get { return quitCommand; } }
 
         private void RequestManagementWindow()
         {
@@ -55,6 +58,14 @@ namespace JuliusSweetland.OptiKids.UI.Windows
                     AudioService = audioService,
                 },
                 _ => inputService.RequestResume());
+        }
+
+        private void Quit()
+        {
+            if (MessageBox.Show(Properties.Resources.QUIT_MESSAGE, Properties.Resources.QUIT, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }

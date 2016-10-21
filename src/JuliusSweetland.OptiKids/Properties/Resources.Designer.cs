@@ -645,6 +645,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you would like to quit?.
+        /// </summary>
+        public static string QUIT_MESSAGE {
+            get {
+                return ResourceManager.GetString("QUIT_MESSAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quit.
         /// </summary>
         public static string QUIT_TITLE_CASE {

@@ -478,4 +478,7 @@ You can turn off update checks from the Management Console (ALT + M).</value>
   <data name="WORD_RATE_LABEL" xml:space="preserve">
     <value>Word to spell speech rate:</value>
   </data>
+  <data name="QUIT_MESSAGE" xml:space="preserve">
+    <value>Are you sure you would like to quit?</value>
+  </data>
 </root>
