@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using JuliusSweetland.OptiKids.Properties;
+using JuliusSweetland.OptiKids.UI.ViewModels.Management;
 
 namespace JuliusSweetland.OptiKids.UI.Views.Management
 {
@@ -24,7 +25,11 @@ namespace JuliusSweetland.OptiKids.UI.Views.Management
             var result = dlg.ShowDialog();
             if (result == true)
             {
-                Settings.Default.PronunciationFile = dlg.FileName;
+                var soundsViewModel = (SoundsViewModel) DataContext;
+                if (soundsViewModel != null)
+                {
+                    soundsViewModel.PronunciationFile = dlg.FileName;
+                }
             }
         }
     }

@@ -186,6 +186,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delay before progressing questions (seconds):.
+        /// </summary>
+        public static string DELAY_BEFORE_PROGRESSING_IN_SECONDS {
+            get {
+                return ResourceManager.GetString("DELAY_BEFORE_PROGRESSING_IN_SECONDS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display for X seconds per message character:.
         /// </summary>
         public static string DISPLAY_FOR_X_SECONDS_PER_CHARACTER_LABEL {
@@ -321,7 +330,7 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hello there!.
+        ///   Looks up a localized string similar to OptiKids.
         /// </summary>
         public static string INTRO_SCREEN_TITLE {
             get {
@@ -465,6 +474,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Min image display time (seconds):.
+        /// </summary>
+        public static string MIN_IMAGE_DISPLAY_TIME_IN_SECONDS {
+            get {
+                return ResourceManager.GetString("MIN_IMAGE_DISPLAY_TIME_IN_SECONDS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Misc.
         /// </summary>
         public static string MISC {
@@ -564,6 +582,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Play encouragement on correctly spelled word:.
+        /// </summary>
+        public static string PLAY_ENCOURAGEMENT_ON_CORRECTLY_SPELLED_WORD {
+            get {
+                return ResourceManager.GetString("PLAY_ENCOURAGEMENT_ON_CORRECTLY_SPELLED_WORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Play.
         /// </summary>
         public static string PLAY_SOUND {
@@ -596,6 +623,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         public static string PROBLEM_LOADING_KEYBOARD {
             get {
                 return ResourceManager.GetString("PROBLEM_LOADING_KEYBOARD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pronunciation file:.
+        /// </summary>
+        public static string PRONUNCIATION_FILE {
+            get {
+                return ResourceManager.GetString("PRONUNCIATION_FILE", resourceCulture);
             }
         }
         
@@ -645,7 +681,7 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rate:.
+        ///   Looks up a localized string similar to General speech rate:.
         /// </summary>
         public static string RATE_LABEL {
             get {
@@ -759,6 +795,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         public static string SPEECH {
             get {
                 return ResourceManager.GetString("SPEECH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Spelling speech rate:.
+        /// </summary>
+        public static string SPELLING_RATE_LABEL {
+            get {
+                return ResourceManager.GetString("SPELLING_RATE_LABEL", resourceCulture);
             }
         }
         
@@ -1061,11 +1106,20 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Volume:.
+        ///   Looks up a localized string similar to General speech volume:.
         /// </summary>
         public static string VOLUME_LABEL {
             get {
                 return ResourceManager.GetString("VOLUME_LABEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Word to spell speech rate:.
+        /// </summary>
+        public static string WORD_RATE_LABEL {
+            get {
+                return ResourceManager.GetString("WORD_RATE_LABEL", resourceCulture);
             }
         }
     }

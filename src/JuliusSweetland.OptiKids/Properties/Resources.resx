@@ -246,7 +246,7 @@ Sorry for the inconvenience.</value>
     <value>PROBLEM LOADING KEYBOARD</value>
   </data>
   <data name="RATE_LABEL" xml:space="preserve">
-    <value>Rate:</value>
+    <value>General speech rate:</value>
   </data>
   <data name="RESTART_MESSAGE" xml:space="preserve">
     <value>OptiKids needs to restart to apply your changes.
@@ -359,7 +359,7 @@ You can turn off update checks from the Management Console (ALT + M).</value>
     <value>Voice:</value>
   </data>
   <data name="VOLUME_LABEL" xml:space="preserve">
-    <value>Volume:</value>
+    <value>General speech volume:</value>
   </data>
   <data name="HIGH" xml:space="preserve">
     <value>High</value>
@@ -398,7 +398,7 @@ You can turn off update checks from the Management Console (ALT + M).</value>
     <value>Correct!|That’s right!|You did it!|Well done!|That is correct!|Nicely done!|Nice!|Good spelling!|Yes!|Amazing!|You’re very good at spelling!|That’s great!|Excellent!|Brilliant!|Absolutely right!|Exactly right!|Nice!|Perfect!|You got it!</value>
   </data>
   <data name="INTRO_SCREEN_TITLE" xml:space="preserve">
-    <value>Hello there!</value>
+    <value>OptiKids</value>
   </data>
   <data name="QUIZ_COMPLETE_CONTENT" xml:space="preserve">
     <value>You completed the quiz. Congratulations!</value>
@@ -459,5 +459,23 @@ You can turn off update checks from the Management Console (ALT + M).</value>
   </data>
   <data name="QUIT" xml:space="preserve">
     <value>    Quit    </value>
+  </data>
+  <data name="DELAY_BEFORE_PROGRESSING_IN_SECONDS" xml:space="preserve">
+    <value>Delay before progressing questions (seconds):</value>
+  </data>
+  <data name="MIN_IMAGE_DISPLAY_TIME_IN_SECONDS" xml:space="preserve">
+    <value>Min image display time (seconds):</value>
+  </data>
+  <data name="PLAY_ENCOURAGEMENT_ON_CORRECTLY_SPELLED_WORD" xml:space="preserve">
+    <value>Play encouragement on correctly spelled word:</value>
+  </data>
+  <data name="PRONUNCIATION_FILE" xml:space="preserve">
+    <value>Pronunciation file:</value>
+  </data>
+  <data name="SPELLING_RATE_LABEL" xml:space="preserve">
+    <value>Spelling speech rate:</value>
+  </data>
+  <data name="WORD_RATE_LABEL" xml:space="preserve">
+    <value>Word to spell speech rate:</value>
   </data>
 </root>

@@ -79,7 +79,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
                                         .First();
                                 await Speak(encouragement, false, 0);
                             }
-                            await Task.Delay(Settings.Default.MinDelayBeforeProgressingInSeconds * 1000);
+                            await Task.Delay(Settings.Default.DelayBeforeProgressingInSeconds * 1000);
                             ProgressQuestion();
                         }
                         else

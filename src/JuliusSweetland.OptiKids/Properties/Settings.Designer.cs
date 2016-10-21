@@ -469,12 +469,12 @@ namespace JuliusSweetland.OptiKids.Properties {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("3")]
         [global::System.Configuration.SettingsManageabilityAttribute(global::System.Configuration.SettingsManageability.Roaming)]
-        public int MinDelayBeforeProgressingInSeconds {
+        public int DelayBeforeProgressingInSeconds {
             get {
-                return ((int)(this["MinDelayBeforeProgressingInSeconds"]));
+                return ((int)(this["DelayBeforeProgressingInSeconds"]));
             }
             set {
-                this["MinDelayBeforeProgressingInSeconds"] = value;
+                this["DelayBeforeProgressingInSeconds"] = value;
             }
         }
         

@@ -9,7 +9,8 @@
         WindowState="Maximized"
         WindowStyle="None"
         Title="OptiKids"
-        Icon="..\..\Resources\Icons\Main.ico">
+        Icon="..\..\Resources\Icons\Main.ico"
+        Tag="{Binding RelativeSource={RelativeSource Mode=Self}}">
     <Window.ContextMenu>
         <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
             <MenuItem Header="{x:Static resx:Resources.MANAGEMENT_CONSOLE}" 

@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
+using JuliusSweetland.OptiKids.Extensions;
 using JuliusSweetland.OptiKids.Properties;
 using JuliusSweetland.OptiKids.Services;
 using log4net;
@@ -25,7 +28,9 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
 
             InfoSoundPlayCommand = new DelegateCommand(() => audioService.PlaySound(InfoSoundFile, InfoSoundVolume));
             ErrorSoundPlayCommand = new DelegateCommand(() => audioService.PlaySound(ErrorSoundFile, ErrorSoundVolume));
-            
+
+            this.OnPropertyChanges(s => s.PronunciationFile).Subscribe(_ => OnPropertyChanged(() => PronunciationFileName));
+
             Load();
         }
         
@@ -93,6 +98,11 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
         {
             get { return pronunciationFile; }
             set { SetProperty(ref pronunciationFile, value); }
+        }
+
+        public string PronunciationFileName
+        {
+            get { return Path.GetFileName(PronunciationFile); }
         }
 
         private bool playEncouragementOnCorrectlySpelledWord;

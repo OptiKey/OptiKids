@@ -183,7 +183,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
         }
 
         private int minDelayBeforeProgressingInSeconds;
-        public int MinDelayBeforeProgressingInSeconds
+        public int DelayBeforeProgressingInSeconds
         {
             get { return minDelayBeforeProgressingInSeconds; }
             set { SetProperty(ref minDelayBeforeProgressingInSeconds, value); }
@@ -208,7 +208,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             ToastNotificationHorizontalFillPercentage = Settings.Default.ToastNotificationHorizontalFillPercentage;
             ToastNotificationSecondsPerCharacter = Settings.Default.ToastNotificationSecondsPerCharacter;
             MinImageDisplayTimeInSeconds = Settings.Default.MinImageDisplayTimeInSeconds;
-            MinDelayBeforeProgressingInSeconds = Settings.Default.MinDelayBeforeProgressingInSeconds;
+            DelayBeforeProgressingInSeconds = Settings.Default.DelayBeforeProgressingInSeconds;
         }
 
         public void ApplyChanges()
@@ -221,7 +221,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
             Settings.Default.ToastNotificationHorizontalFillPercentage = ToastNotificationHorizontalFillPercentage;
             Settings.Default.ToastNotificationSecondsPerCharacter = ToastNotificationSecondsPerCharacter;
             Settings.Default.MinImageDisplayTimeInSeconds = MinImageDisplayTimeInSeconds;
-            Settings.Default.MinDelayBeforeProgressingInSeconds = MinDelayBeforeProgressingInSeconds;
+            Settings.Default.DelayBeforeProgressingInSeconds = DelayBeforeProgressingInSeconds;
         }
 
         #endregion
