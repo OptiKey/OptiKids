@@ -35,6 +35,8 @@
                                VerticalAlignment="Center" Margin="5" />
                     <ComboBox Grid.Row="0" Grid.Column="1" 
                               ItemsSource="{Binding SpeechVoices}"
+                              DisplayMemberPath="Key"
+                              SelectedValuePath="Value"
                               SelectedValue="{Binding SpeechVoice, Mode=TwoWay}" />
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static resx:Resources.VOLUME_LABEL}" 

@@ -39,9 +39,12 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
         
         #region Properties
 
-        public List<string> SpeechVoices
+        public List<KeyValuePair<string, string>> SpeechVoices
         {
-            get { return new List<string> { "" }.Concat(audioService.GetAvailableVoices()).ToList(); }
+            get { return new List<KeyValuePair<string, string>>
+            {
+                new KeyValuePair<string, string>(Resources.DEFAULT, null)
+            }.Concat(audioService.GetAvailableVoices().Select(v => new KeyValuePair<string, string>(v, v))).ToList(); }
         }
         
         public List<KeyValuePair<string, string>> GeneralSoundFiles

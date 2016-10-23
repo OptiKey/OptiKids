@@ -186,6 +186,15 @@ namespace JuliusSweetland.OptiKids.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string DEFAULT {
+            get {
+                return ResourceManager.GetString("DEFAULT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delay before progressing questions (seconds):.
         /// </summary>
         public static string DELAY_BEFORE_PROGRESSING_IN_SECONDS {

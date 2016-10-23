@@ -481,4 +481,7 @@ You can turn off update checks from the Management Console (ALT + M).</value>
   <data name="QUIT_MESSAGE" xml:space="preserve">
     <value>Are you sure you would like to quit?</value>
   </data>
+  <data name="DEFAULT" xml:space="preserve">
+    <value>Default</value>
+  </data>
 </root>
