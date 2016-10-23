@@ -10,7 +10,10 @@
         <ResourceDictionary Source="/OptiKids;component/Resources/Themes/Colours/Android.xaml" />
         <ResourceDictionary>
             <SolidColorBrush x:Key="WindowBorderBrush" Color="{StaticResource Grey}" />
-            
+
+            <SolidColorBrush x:Key="DefaultForegroundBrush" Color="{StaticResource Black}" />
+            <SolidColorBrush x:Key="DefaultBackgroundBrush" Color="{StaticResource White}" />
+
             <SolidColorBrush x:Key="KeyDefaultForegroundBrush" Color="{StaticResource Black}" />
             <SolidColorBrush x:Key="KeyDefaultBorderBrush" Color="{StaticResource Grey}" />
             <SolidColorBrush x:Key="KeyDefaultBackgroundBrush" Color="{StaticResource White}" />

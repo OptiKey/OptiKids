@@ -212,8 +212,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         private async Task Speak(string text, bool spell, int? overrideSpeakRate = null)
         {
             var wordTcs = new TaskCompletionSource<bool>(); //Used to make this method awaitable
-            audioService.SpeakNewOrInterruptCurrentSpeech(text, 
-                () => wordTcs.SetResult(true), null, 
+            audioService.Speak(text, () => wordTcs.SetResult(true), null, 
                 overrideSpeakRate != null ? overrideSpeakRate.Value : Settings.Default.WordSpeechRate);
             await wordTcs.Task;
 
@@ -227,16 +226,10 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels
         {
             var ssmls = word.Where(Char.IsLetter)
                 .Select(c => pronunciation.ContainsKey(c)
-                    ? string.Format("<phoneme alphabet=\"x-microsoft-ups\" ph=\"{0}\">{0}</phoneme><break />", pronunciation[c])
-                    : string.Format("{0}<break />", c));
-            var promptBuilder = new PromptBuilder();
-            foreach (var ssml in ssmls)
-            {
-                promptBuilder.AppendSsmlMarkup(ssml);
-            }
+                    ? string.Format("<phoneme alphabet=\"x-microsoft-ups\" ph=\"{0} \">{0} </phoneme> <break />", pronunciation[c])
+                    : string.Format("{0} <break />", c));
             var spellingTcs = new TaskCompletionSource<bool>();
-            audioService.SpeakNewOrInterruptCurrentSpeech(promptBuilder,
-                () => spellingTcs.SetResult(true), null, Settings.Default.SpellingSpeechRate);
+            audioService.SpeakSsml(ssmls, () => spellingTcs.SetResult(true), null, Settings.Default.SpellingSpeechRate);
             await spellingTcs.Task;
         }
 

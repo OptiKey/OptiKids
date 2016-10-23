@@ -12,25 +12,25 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <ControlTemplate x:Key="QuizSetupButton" TargetType="{x:Type Button}">
             <Grid>
                 <Border x:Name="Border"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="2">
                     <ContentPresenter HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
                 </Border>
             </Grid>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="true">
-                    <Setter TargetName="Border" Property="Background" Value="LightBlue" />
+                    <Setter TargetName="Border" Property="BorderBrush" Value="LightBlue" />
                 </Trigger>
                 <Trigger Property="IsPressed" Value="true">
-                    <Setter TargetName="Border" Property="Background" Value="PaleGreen" />
                     <Setter TargetName="Border" Property="BorderBrush" Value="DarkGreen" />
                 </Trigger>
-            </ControlTemplate.Triggers>
+            </ControlTemplate.Triggers>            
         </ControlTemplate>
     </UserControl.Resources>
 
@@ -63,7 +63,7 @@
         <Image Stretch="Uniform" Source="{Binding ImagePath}" />
 
         <!-- QUIZ SETUP -->
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="White">
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.Style>
                 <Style TargetType="{x:Type Grid}">
                     <Setter Property="Visibility" Value="Hidden" />
@@ -93,6 +93,8 @@
                            VerticalAlignment="Center" 
                            TextAlignment="Center"
                            Text="{x:Static resx:Resources.INTRO_SCREEN_TITLE}"
+                           Foreground="{DynamicResource DefaultForegroundBrush}"
+                           Background="{DynamicResource DefaultBackgroundBrush}"
                            FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
                            FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
                            FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
@@ -102,6 +104,8 @@
                            VerticalAlignment="Center" 
                            TextAlignment="Center"
                            Text="{x:Static resx:Resources.QUIZ_FILE}"
+                           Foreground="{DynamicResource DefaultForegroundBrush}"
+                           Background="{DynamicResource DefaultBackgroundBrush}"
                            FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
                            FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
                            FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
@@ -111,6 +115,8 @@
                            VerticalAlignment="Center" 
                            TextAlignment="Center"
                            Text="{Binding QuizFileName, Mode=OneWay}"
+                           Foreground="{DynamicResource DefaultForegroundBrush}"
+                           Background="{DynamicResource DefaultBackgroundBrush}"
                            FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
                            FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
                            FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
@@ -119,18 +125,21 @@
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
+                    Background="{DynamicResource DefaultBackgroundBrush}"
                     VerticalContentAlignment="Center"
                     Click="LookupQuizFile_OnClick"
                     Template="{StaticResource QuizSetupButton}">
                 <Button.Content>
                     <controls:TextBlockScaler>
                         <TextBlock HorizontalAlignment="Stretch" 
-                               VerticalAlignment="Center" 
-                               TextAlignment="Center"
-                               Text="..."
-                               FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
-                               FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
-                               FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
+                                   VerticalAlignment="Center" 
+                                   TextAlignment="Center"
+                                   Text="..."
+                                   Foreground="{DynamicResource DefaultForegroundBrush}"
+                                   Background="{DynamicResource DefaultBackgroundBrush}"
+                                   FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
+                                   FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
+                                   FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
                     </controls:TextBlockScaler>
                 </Button.Content>
             </Button>
@@ -139,17 +148,20 @@
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
+                    Background="{DynamicResource DefaultBackgroundBrush}"
                     Command="{Binding StartQuizCommand}"
                     Template="{StaticResource QuizSetupButton}">                
                 <Button.Content>
-                    <controls:TextBlockScaler Margin="10">
+                    <controls:TextBlockScaler>
                         <TextBlock HorizontalAlignment="Stretch" 
-                               VerticalAlignment="Center" 
-                               TextAlignment="Center"
-                               Text="{x:Static resx:Resources.START_QUIZ_BUTTON}"
-                               FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
-                               FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
-                               FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
+                                   VerticalAlignment="Center" 
+                                   TextAlignment="Center"
+                                   Text="{x:Static resx:Resources.START_QUIZ_BUTTON}"
+                                   Foreground="{DynamicResource DefaultForegroundBrush}"
+                                   Background="{DynamicResource DefaultBackgroundBrush}"
+                                   FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
+                                   FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
+                                   FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
                     </controls:TextBlockScaler>
                 </Button.Content>
             </Button>
@@ -158,17 +170,20 @@
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
+                    Background="{DynamicResource DefaultBackgroundBrush}"
                     Command="{Binding ManagementWindowRequestCommand}"
                     Template="{StaticResource QuizSetupButton}">
                 <Button.Content>
                     <controls:TextBlockScaler>
                         <TextBlock HorizontalAlignment="Stretch" 
-                               VerticalAlignment="Center" 
-                               TextAlignment="Center"
-                               Text="{x:Static resx:Resources.MANAGEMENT_CONSOLE_BUTTON}"
-                               FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
-                               FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
-                               FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
+                                   VerticalAlignment="Center" 
+                                   TextAlignment="Center"
+                                   Text="{x:Static resx:Resources.MANAGEMENT_CONSOLE_BUTTON}"
+                                   Foreground="{DynamicResource DefaultForegroundBrush}"
+                                   Background="{DynamicResource DefaultBackgroundBrush}"
+                                   FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
+                                   FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
+                                   FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
                     </controls:TextBlockScaler>
                 </Button.Content>
             </Button>
@@ -177,17 +192,20 @@
                     VerticalAlignment="Stretch"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
+                    Background="{DynamicResource DefaultBackgroundBrush}"
                     Command="{Binding QuitRequestCommand}"
                     Template="{StaticResource QuizSetupButton}">
                 <Button.Content>
                     <controls:TextBlockScaler>
                         <TextBlock HorizontalAlignment="Stretch" 
-                               VerticalAlignment="Center" 
-                               TextAlignment="Center"
-                               Text="{x:Static resx:Resources.QUIT}"
-                               FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
-                               FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
-                               FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
+                                   VerticalAlignment="Center" 
+                                   TextAlignment="Center"
+                                   Text="{x:Static resx:Resources.QUIT}"
+                                   Foreground="{DynamicResource DefaultForegroundBrush}"
+                                   Background="{DynamicResource DefaultBackgroundBrush}"
+                                   FontFamily="{Binding Source={x:Static resx:Settings.Default}, Path=FontFamily}"
+                                   FontWeight="{Binding Source={x:Static resx:Settings.Default}, Path=FontWeight}"
+                                   FontStretch="{Binding Source={x:Static resx:Settings.Default}, Path=FontStretch}" />
                     </controls:TextBlockScaler>
                 </Button.Content>
             </Button>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using JuliusSweetland.OptiKids.Extensions;
 using JuliusSweetland.OptiKids.Properties;
 using JuliusSweetland.OptiKids.Services;
@@ -40,7 +41,7 @@ namespace JuliusSweetland.OptiKids.UI.ViewModels.Management
 
         public List<string> SpeechVoices
         {
-            get { return audioService.GetAvailableVoices(); }
+            get { return new List<string> { "" }.Concat(audioService.GetAvailableVoices()).ToList(); }
         }
         
         public List<KeyValuePair<string, string>> GeneralSoundFiles

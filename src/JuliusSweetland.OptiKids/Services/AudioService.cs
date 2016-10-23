@@ -24,7 +24,6 @@ namespace JuliusSweetland.OptiKids.Services
         
         private readonly SpeechSynthesizer speechSynthesiser;
 
-        private readonly object speakCompletedLock = new object();
         private EventHandler<SpeakCompletedEventArgs> speakCompleted;
         
         #endregion
@@ -50,68 +49,103 @@ namespace JuliusSweetland.OptiKids.Services
         #region Public methods
         
         /// <summary>
-        /// Start speaking the supplied text, or cancel the in-progress speech
+        /// Start speaking the supplied text
         /// </summary>
-        /// <returns>Indication of whether speech is now in progress</returns>
-        public bool SpeakNewOrInterruptCurrentSpeech(string textToSpeak, Action onComplete, int? volume = null, int? rate = null, string voice = null)
+        public void Speak(string textToSpeak, Action onComplete, int? volume = null, int? rate = null, string voice = null)
         {
-            Log.Info("SpeakNewOrInterruptCurrentSpeech called");
+            Log.Info("Speak called");
 
             try
             {
-                lock (speakCompletedLock)
+                if (string.IsNullOrEmpty(textToSpeak)) return;
+
+                speechSynthesiser.Rate = rate ?? Settings.Default.SpeechRate;
+                speechSynthesiser.Volume = volume ?? Settings.Default.SpeechVolume;
+
+                var voiceToUse = voice ?? Settings.Default.SpeechVoice;
+                if (!string.IsNullOrWhiteSpace(voiceToUse))
                 {
-                    if (speakCompleted == null)
+                    try
                     {
-                        Action speakAction = () =>
-                        {
-                            Log.InfoFormat("Speaking '{0}' with volume '{1}', rate '{2}' and voice '{3}'", textToSpeak, volume, rate, voice);
-                            if (string.IsNullOrEmpty(textToSpeak)) return;
-                            speechSynthesiser.SpeakAsync(textToSpeak);
-                        };
-                        Speak(speakAction, onComplete, volume, rate, voice);
-                        return true;
+                        speechSynthesiser.SelectVoice(voiceToUse);
                     }
-                    CancelSpeech();
+                    catch (Exception exception)
+                    {
+                        var customException = new ApplicationException(string.Format(Resources.UNABLE_TO_SET_VOICE_WARNING,
+                            voiceToUse, voice == null ? Resources.VOICE_COMES_FROM_SETTINGS : null), exception);
+                        PublishError(this, customException);
+                    }
                 }
+
+                speakCompleted = (sender, args) =>
+                {
+                    speechSynthesiser.SpeakCompleted -= speakCompleted;
+                    speakCompleted = null;
+                    if (onComplete != null)
+                    {
+                        onComplete();
+                    }
+                };
+                speechSynthesiser.SpeakCompleted += speakCompleted;
+
+                Log.InfoFormat("Speaking '{0}' with volume '{1}', rate '{2}' and voice '{3}'", textToSpeak, volume, rate, voice);
+                speechSynthesiser.SpeakAsync(textToSpeak);
             }
             catch (Exception exception)
             {
                 PublishError(this, exception);
             }
-            return false;
         }
 
         /// <summary>
         /// Start speaking the supplied text, or cancel the in-progress speech
         /// </summary>
-        /// <returns>Indication of whether speech is now in progress</returns>
-        public bool SpeakNewOrInterruptCurrentSpeech(PromptBuilder promptBuilder, Action onComplete, int? volume = null, int? rate = null, string voice = null)
+        public void SpeakSsml(IEnumerable<string> ssmls, Action onComplete, int? volume = null, int? rate = null, string voice = null)
         {
-            Log.Info("SpeakNewOrInterruptCurrentSpeech called");
+            Log.Info("SpeakSsml called");
 
             try
             {
-                lock (speakCompletedLock)
+                if (!ssmls.Any()) return;
+
+                speechSynthesiser.Rate = rate ?? Settings.Default.SpeechRate;
+                speechSynthesiser.Volume = volume ?? Settings.Default.SpeechVolume;
+                
+                speakCompleted = (sender, args) =>
                 {
-                    if (speakCompleted == null)
+                    if (speakCompleted != null)
                     {
-                        Action speakAction = () =>
-                        {
-                            Log.InfoFormat("Speaking prompt '{0}' with volume '{1}', rate '{2}' and voice '{3}'", promptBuilder, volume, rate, voice);
-                            speechSynthesiser.SpeakAsync(promptBuilder);
-                        };
-                        Speak(speakAction, onComplete, volume, rate, voice);
-                        return true;
+                        speechSynthesiser.SpeakCompleted -= speakCompleted;
                     }
-                    CancelSpeech();
+                    speakCompleted = null;
+                    if (onComplete != null)
+                    {
+                        onComplete();
+                    }
+                };
+                speechSynthesiser.SpeakCompleted += speakCompleted;
+
+                var pb = new PromptBuilder();
+                string voiceToUse = voice ?? Settings.Default.SpeechVoice;
+                if (!string.IsNullOrWhiteSpace(voiceToUse))
+                {
+                    pb.AppendSsmlMarkup(string.Format("<voice name=\"{0}\">", voiceToUse));
                 }
+                foreach (var ssml in ssmls)
+                {
+                    pb.AppendSsmlMarkup(ssml);
+                }
+                if (!string.IsNullOrWhiteSpace(voiceToUse))
+                {
+                    pb.AppendSsmlMarkup("</voice>");
+                }
+                Log.InfoFormat("Speaking prompt '{0}' with volume '{1}', rate '{2}' and voice '{3}'", pb.ToXml(), volume, rate, voice);
+                speechSynthesiser.SpeakAsync(pb);
             }
             catch (Exception exception)
             {
                 PublishError(this, exception);
             }
-            return false;
         }
 
         public List<string> GetAvailableVoices()
@@ -160,62 +194,6 @@ namespace JuliusSweetland.OptiKids.Services
             {
                 Error(sender, ex);
             }
-        }
-
-        #endregion
-
-        #region Private methods
-
-        private void CancelSpeech()
-        {
-            Log.Info("Cancelling all speech");
-            lock (speakCompletedLock)
-            {
-                if (speakCompleted != null)
-                {
-                    speechSynthesiser.SpeakCompleted -= speakCompleted;
-                    speakCompleted = null;
-                }
-                speechSynthesiser.SpeakAsyncCancelAll();
-            }
-        }
-        
-        private void Speak(Action speak, Action onComplete, int? volume = null, int? rate = null, string voice = null)
-        {
-            if (speak == null) return;
-
-            speechSynthesiser.Rate = rate ?? Settings.Default.SpeechRate;
-            speechSynthesiser.Volume = volume ?? Settings.Default.SpeechVolume;
-
-            var voiceToUse = voice ?? Settings.Default.SpeechVoice;
-            if (!string.IsNullOrWhiteSpace(voiceToUse))
-            {
-                try
-                {
-                    speechSynthesiser.SelectVoice(voiceToUse);
-                }
-                catch (Exception exception)
-                {
-                    var customException = new ApplicationException(string.Format(Resources.UNABLE_TO_SET_VOICE_WARNING,
-                        voiceToUse, voice == null ? Resources.VOICE_COMES_FROM_SETTINGS : null), exception);
-                    PublishError(this, customException);
-                }
-            }
-
-            speakCompleted = (sender, args) =>
-            {
-                lock (speakCompletedLock)
-                {
-                    speechSynthesiser.SpeakCompleted -= speakCompleted;
-                    speakCompleted = null;
-                    if (onComplete != null)
-                    {
-                        onComplete();
-                    }
-                }
-            };
-            speechSynthesiser.SpeakCompleted += speakCompleted;
-            speak();
         }
 
         #endregion
